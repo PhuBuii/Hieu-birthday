@@ -56,8 +56,9 @@ function fadeTo(a, target, done) {
   const id = (a._fade = (a._fade || 0) + 1);
   const step = (t) => {
     if (a._fade !== id) return;
-    const k = Math.min(1, (t - t0) / 900);
-    a.volume = start + (target - start) * k;
+    // mốc rAF có thể sớm hơn t0 một chút → k âm → volume < 0 làm trình duyệt báo lỗi
+    const k = Math.max(0, Math.min(1, (t - t0) / 900));
+    a.volume = Math.max(0, Math.min(1, start + (target - start) * k));
     if (k < 1) requestAnimationFrame(step);
     else done?.();
   };

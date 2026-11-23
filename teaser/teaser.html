@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Héo ơi, có quà nè</title>
+<style>
+/* ===== Font cục bộ (thư mục fonts/ cạnh tệp này), không gọi mạng ===== */
+@font-face{font-family:'Be Vietnam Pro';font-weight:600;font-display:block;src:url(fonts/be-vietnam-pro-vietnamese-600-normal.woff2) format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'Be Vietnam Pro';font-weight:600;font-display:block;src:url(fonts/be-vietnam-pro-latin-600-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Be Vietnam Pro';font-weight:800;font-display:block;src:url(fonts/be-vietnam-pro-vietnamese-800-normal.woff2) format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'Be Vietnam Pro';font-weight:800;font-display:block;src:url(fonts/be-vietnam-pro-latin-800-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Playfair Display';font-weight:900;font-display:block;src:url(fonts/playfair-display-vietnamese-900-normal.woff2) format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'Playfair Display';font-weight:900;font-display:block;src:url(fonts/playfair-display-latin-900-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Pacifico';font-weight:400;font-display:block;src:url(fonts/pacifico-vietnamese-400-normal.woff2) format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'Pacifico';font-weight:400;font-display:block;src:url(fonts/pacifico-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+:root{
+  --cream:#FFF6EA; --orange:#F26A2E; --yellow:#F5C242; --sage:#6E8F7E;
+  --sky:#AFC3CE; --navy:#1E2A4A; --ink:#3A2A20;
+  --blur:24px;      /* độ mờ của ảnh manh mối */
+  --veil:.45;       /* độ đục lớp kem phủ lên ảnh mờ */
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#111a33;overflow:hidden}
+body{font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--cream)}
+img{display:block;user-select:none;-webkit-user-drag:none}
+
+/* Khung cố định 1080×1920, co giãn bằng JS (bọc trong #wrap cố định để trang không bị nới rộng trên điện thoại) */
+#wrap{position:fixed;inset:0;overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden;transform-origin:0 0;background:var(--navy);visibility:hidden}
+.abs{position:absolute}
+#bg{position:absolute;left:-100px;top:0;width:1280px;height:1920px;object-fit:cover}
+.star{position:absolute;background:var(--cream);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);filter:drop-shadow(0 0 6px rgba(255,246,234,.9))}
+.star.dot{clip-path:none;border-radius:50%}
+
+/* Hộp quà = thân hộp (gift-open) + nắp (gift) */
+#gift{left:390px;top:962px;width:499px;height:368px;z-index:2;transform-origin:50% 100%}
+#gift .box{position:absolute;left:0;top:0;width:499px;height:368px}
+#gift .lid{position:absolute;left:-1px;top:-232px;width:501px;height:301px;transform-origin:88% 92%;z-index:4}
+#rays{position:absolute;left:-250px;top:-440px;width:1000px;height:1000px;opacity:0;z-index:0;
+  background:
+    radial-gradient(circle,rgba(255,243,176,.95) 0,rgba(245,194,66,.55) 16%,rgba(245,194,66,0) 42%),
+    repeating-conic-gradient(from 0deg,rgba(245,194,66,.42) 0deg 9deg,rgba(245,194,66,0) 9deg 24deg);
+  -webkit-mask:radial-gradient(circle,#000 18%,transparent 62%);mask:radial-gradient(circle,#000 18%,transparent 62%)}
+#gift .box{z-index:1}
+#silWin{position:absolute;left:52px;top:-200px;width:396px;height:274px;overflow:hidden;z-index:3;opacity:0;
+  background:radial-gradient(ellipse 70% 90% at 50% 100%,#FFF7C8 0,#F9D85E 38%,rgba(245,194,66,0) 80%);
+  -webkit-mask:linear-gradient(to top,#000 55%,transparent);mask:linear-gradient(to top,#000 55%,transparent)}
+#silWin img{position:absolute;bottom:-40px;left:0;height:230px;width:auto;filter:brightness(0);opacity:0}
+#lock{position:absolute;left:96px;top:132px;width:170px;height:170px;z-index:5;opacity:0;filter:drop-shadow(0 8px 0 rgba(58,42,32,.35))}
+
+/* Hiếu: #hieu (vị trí) > .pop (nảy khi đổi dáng) > .breath (thở) > ảnh */
+#hieu{left:40px;top:530px;width:420px;height:800px;z-index:3;transform-origin:50% 100%;opacity:0}
+#hieu .pop,#hieu .breath{position:absolute;inset:0;transform-origin:50% 100%}
+#hieu .pose{position:absolute;bottom:0;left:50%;translate:-50% 0;height:auto;opacity:0;visibility:hidden}
+#q{position:absolute;left:250px;top:30px;width:118px;height:118px;border-radius:50%;background:var(--cream);border:7px solid var(--ink);
+  display:grid;place-items:center;font:900 82px/1 'Playfair Display',serif;color:var(--orange);opacity:0;box-shadow:0 7px 0 rgba(58,42,32,.35)}
+#q span{transform:translateY(-4px)}
+
+/* Chữ (luôn trong vùng an toàn 200px trên/dưới) */
+.outline{text-shadow:
+  0 6px 0 var(--ink),5px 0 0 var(--ink),-5px 0 0 var(--ink),0 -5px 0 var(--ink),
+  4px 4px 0 var(--ink),-4px 4px 0 var(--ink),4px -4px 0 var(--ink),-4px -4px 0 var(--ink),0 12px 0 rgba(58,42,32,.45)}
+#title{left:60px;right:60px;top:250px;text-align:center;font:900 98px/1.12 'Playfair Display',serif;z-index:6}
+#title .w{display:inline-block;opacity:0}
+#title .hl{color:var(--orange)}
+#date{left:0;right:0;top:500px;text-align:center;font:400 82px/1.3 'Pacifico',cursive;color:var(--yellow);z-index:6;opacity:0}
+#cach{left:560px;top:690px;font:900 92px/1 'Playfair Display',serif;color:var(--yellow);z-index:6;opacity:0;letter-spacing:.02em}
+
+/* Đồng hồ lật số (phẳng, cuộn dọc) */
+#clock{left:0;right:0;top:1392px;display:flex;justify-content:center;align-items:center;gap:16px;z-index:6;opacity:0}
+.card{position:relative;width:112px;height:150px;border-radius:20px;background:var(--cream);border:7px solid var(--ink);overflow:hidden;box-shadow:0 9px 0 rgba(58,42,32,.45)}
+.card::after{content:"";position:absolute;left:0;right:0;top:50%;height:5px;margin-top:-2px;background:rgba(58,42,32,.22)}
+.strip{position:absolute;left:0;right:0;top:0}
+.strip b{display:block;height:136px;text-align:center;font:900 112px/136px 'Playfair Display',serif;font-variant-numeric:lining-nums;color:var(--navy)}
+.colon{font:900 100px/1 'Playfair Display',serif;color:var(--cream);margin:0 6px;transform:translateY(-8px)}
+
+/* Polaroid manh mối */
+#pol{left:110px;top:400px;width:860px;height:704px;background:var(--cream);border:6px solid var(--ink);border-radius:14px;padding:24px 24px 0;z-index:4;opacity:0;
+  box-shadow:0 18px 0 rgba(58,42,32,.4)}
+#pol .tape{position:absolute;left:50%;top:-34px;width:210px;height:64px;margin-left:-105px;background:rgba(242,106,46,.72);transform:rotate(4deg);border-radius:6px}
+#ph{position:relative;width:800px;height:536px;overflow:hidden;border-radius:6px;border:5px solid var(--ink);background:#efe3d2;margin-left:-2px}
+#ph img{position:absolute;left:-110.64px;top:0;width:1021.28px;height:536.17px;max-width:none}
+#phBlur{filter:blur(var(--blur)) saturate(1.1)}
+#phVeil{position:absolute;inset:0;background:var(--cream);opacity:var(--veil)}
+/* Kính lúp điều khiển bằng 3 biến (đơn vị: pixel của og-image): --lx, --ly tâm; --lr bán kính */
+#ph{--lx:0;--ly:0;--lr:0;--k:.851064;--R:66}
+#phSharp{clip-path:circle(max(0px, calc(var(--lr) * var(--k) * 1px)) at calc(var(--lx) * var(--k) * 1px) calc(var(--ly) * var(--k) * 1px))}
+#lens{position:absolute;left:0;top:0;width:calc(var(--R) * var(--k) * 2px);height:calc(var(--R) * var(--k) * 2px);border-radius:50%;
+  border:12px solid var(--ink);box-shadow:inset 0 0 0 7px var(--cream),0 0 0 6px var(--cream);transform-origin:50% 50%;
+  opacity:clamp(0, calc(var(--lr) - 1), 1);
+  transform:translate(calc(((var(--lx) - 130) - var(--R)) * var(--k) * 1px), calc((var(--ly) - var(--R)) * var(--k) * 1px)) scale(max(0, calc(var(--lr) / var(--R))))}
+#lens::after{content:"";position:absolute;width:26px;height:110px;left:50%;top:100%;background:var(--ink);border-radius:13px;transform-origin:50% 0;transform:translate(-50%,2px) rotate(-38deg)}
+#pol .cap{text-align:center;font:400 62px/120px 'Pacifico',cursive;color:var(--navy)}
+
+#end{left:60px;right:60px;top:1196px;text-align:center;font:600 52px/1.45 'Be Vietnam Pro',system-ui,sans-serif;z-index:6}
+#end .w{display:inline-block;opacity:0}
+#end .spark{color:var(--yellow)}
+
+.fx{position:absolute;width:68px;height:76px;z-index:7;opacity:0;pointer-events:none}
+
+/* Nút phát lại (ẩn với ?record) */
+#replay{position:fixed;right:16px;bottom:16px;z-index:10;font:800 15px/1 'Be Vietnam Pro',system-ui,sans-serif;color:var(--ink);background:var(--cream);
+  border:3px solid var(--ink);border-radius:999px;padding:12px 18px;cursor:pointer;box-shadow:0 4px 0 var(--ink)}
+#replay:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.record #replay{display:none}
+.record,.record *{cursor:none!important}
+</style>
+</head>
+<body>
+<div id="wrap"><div id="stage" aria-label="Teaser sinh nhật Héo">
+  <img id="bg" src="nen-dem-sao.webp" alt="">
+  <div id="stars"></div>
+
+  <div id="gift" class="abs">
+    <div id="rays"></div>
+    <img class="box" src="gift-open.webp" alt="">
+    <div id="silWin">
+      <img src="runA.webp" alt="">
+      <img src="archer.webp" alt="">
+      <img src="summit.webp" alt="">
+    </div>
+    <img class="lid" src="gift.webp" alt="">
+    <svg id="lock" viewBox="0 0 170 170" aria-hidden="true">
+      <circle cx="85" cy="85" r="78" fill="#F26A2E" stroke="#3A2A20" stroke-width="8"/>
+      <path d="M61 80V62a24 24 0 0 1 48 0v18" fill="none" stroke="#3A2A20" stroke-width="22" stroke-linecap="round"/>
+      <path d="M61 80V62a24 24 0 0 1 48 0v18" fill="none" stroke="#FFF6EA" stroke-width="10" stroke-linecap="round"/>
+      <rect x="46" y="74" width="78" height="60" rx="13" fill="#FFF6EA" stroke="#3A2A20" stroke-width="7"/>
+      <circle cx="85" cy="99" r="9" fill="#3A2A20"/><rect x="81" y="101" width="8" height="19" rx="4" fill="#3A2A20"/>
+    </svg>
+  </div>
+
+  <div id="hieu" class="abs">
+    <div class="pop"><div class="breath">
+      <img class="pose" data-pose="idle" src="idle-full.webp" alt="">
+      <img class="pose" data-pose="jump" src="jump.webp" alt="">
+      <img class="pose" data-pose="pout" src="pout.webp" alt="">
+      <img class="pose" data-pose="point" src="point.webp" alt="">
+    </div></div>
+    <div id="q"><span>?</span></div>
+  </div>
+
+  <div id="cach" class="abs outline">CẠCH!</div>
+  <h1 id="title" class="abs outline"><span class="w">Chưa</span> <span class="w">tới</span> <span class="w">giờ</span> <span class="w">đâu</span><br><span class="w hl">Héo</span> <span class="w">ơi</span></h1>
+  <div id="date" class="abs outline">01 · 12 · 00:00</div>
+  <div id="clock" class="abs">
+    <div class="card"><div class="strip"></div></div>
+    <div class="card"><div class="strip"></div></div>
+    <span class="colon outline">:</span>
+    <div class="card"><div class="strip"></div></div>
+    <div class="card"><div class="strip"></div></div>
+  </div>
+
+  <div id="pol" class="abs">
+    <div class="tape"></div>
+    <div id="ph">
+      <img id="phBlur" src="og-image.jpg" alt="">
+      <div id="phVeil"></div>
+      <img id="phSharp" src="og-image.jpg" alt="">
+      <div id="lens"></div>
+    </div>
+    <div class="cap">01 · 12 · 00:00</div>
+  </div>
+
+  <p id="end" class="abs outline"><span class="w">Có</span> <span class="w">một</span> <span class="w">món</span> <span class="w">quà</span> <span class="w">đang</span> <span class="w">chờ.</span><br><span class="w">Nhớ</span> <span class="w">thức</span> <span class="w">nhé</span> <span class="w spark">✦</span></p>
+
+  <div id="fx"></div>
+</div></div>
+<button id="replay" type="button">↻ Phát lại</button>
+
+<!-- GSAP 3.13.0 (cdnjs) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<script>
+/* ================== CHỈNH Ở ĐÂY ================== */
+// Thời lượng từng cảnh (giây). Đổi số là cả cảnh co/giãn theo, tổng hiện tại 19 giây.
+const T = { s1: 2, s2: 3, s3: 3, s4: 2, s5: 3, s6: 3.5, s7: 2.5 };
+// Các điểm kính lúp dừng, tính theo pixel của og-image.jpg (1200×630).
+// Chỉ dùng vùng x 130–1070. Thứ tự: mũ tiệc của Hiếu → nến "24" → mép tay áo hoodie xám.
+const LENS = [ { x: 393, y: 158 }, { x: 597, y: 314 }, { x: 706, y: 452 } ];
+const LENS_R = 66;   // bán kính kính lúp, cũng theo pixel og-image (to quá sẽ lộ mặt người bên phải)
+// Độ mờ ảnh + lớp kem: sửa --blur và --veil trong :root ở phần <style>.
+/* ================================================= */
+
+const qs = new URLSearchParams(location.search);
+const RECORD = qs.has('record');
+const REDUCED = qs.has('reduced') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (RECORD) document.body.classList.add('record');
+
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const stage = $('#stage');
+
+/* Co giãn khung 1080×1920 vừa màn hình */
+const wrap = $('#wrap');
+function fit() {
+  const W = wrap.clientWidth, H = wrap.clientHeight, s = Math.min(W / 1080, H / 1920);
+  stage.style.transform = `translate(${(W - 1080 * s) / 2}px,${(H - 1920 * s) / 2}px) scale(${s})`;
+}
+addEventListener('resize', fit); fit();
+
+/* Số ngẫu nhiên có hạt giống: lần lặp nào cũng giống hệt nhau */
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const R = rng(1212);
+
+/* Sao nhấp nháy */
+const starBox = $('#stars');
+for (let i = 0; i < 46; i++) {
+  const d = document.createElement('div');
+  const big = R() < .35, size = big ? 14 + R() * 14 : 5 + R() * 6;
+  d.className = 'star' + (big ? '' : ' dot');
+  Object.assign(d.style, { left: (R() * 1060) + 'px', top: (20 + R() * 1080) + 'px', width: size + 'px', height: size + 'px', opacity: .35 + R() * .6 });
+  starBox.appendChild(d);
+  if (!REDUCED) gsap.to(d, { opacity: .15 + R() * .25, scale: .6, duration: .7 + R() * 1.6, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: R() * 2 });
+}
+
+/* Lấp lánh: 8 cái bung ra ở khe hộp, 14 cái rơi ở cuối */
+const fxBox = $('#fx');
+const mk = n => Array.from({ length: n }, () => { const im = document.createElement('img'); im.src = 'sparkle.webp'; im.className = 'fx'; im.alt = ''; fxBox.appendChild(im); return im; });
+const burst = mk(8), rain = mk(14);
+
+/* Đồng hồ: mỗi ô cuộn từ số đầu về 0 → dừng ở 00:00 */
+const STRIPS = [[2, 1, 0], [3, 2, 1, 0], [5, 4, 3, 2, 1, 0], [9, 8, 7, 6, 5, 4, 3, 2, 1, 0, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]];
+const strips = $$('.strip');
+strips.forEach((s, i) => { s.innerHTML = STRIPS[i].map(n => `<b>${n}</b>`).join(''); s.style.top = '0px'; });
+const CELL = 136;
+
+/* Hiếu: các dáng cùng mật độ điểm ảnh (idle cao 640px) */
+const P = {};
+$$('#hieu .pose').forEach(im => { P[im.dataset.pose] = im; });
+const poseImgs = Object.values(P), pop = $('#hieu .pop'), breath = $('#hieu .breath');
+function sizePoses() { poseImgs.forEach(im => { im.style.height = (im.naturalHeight * 640 / 760) + 'px'; }); }
+
+/* Kính lúp: lớp ảnh nét bị cắt hình tròn (clip-path) chồng lên lớp ảnh mờ.
+   Tween thẳng 3 biến CSS --lx/--ly/--lr trên #ph nên tua/quay màn hình đều đúng. */
+const ph = $('#ph'), lens = $('#lens');
+ph.style.setProperty('--R', LENS_R);
+const lensTo = (o, d, ease) => { const v = {}; if ('x' in o) v['--lx'] = o.x; if ('y' in o) v['--ly'] = o.y; if ('r' in o) v['--lr'] = o.r; return { ...v, duration: d, ease }; };
+const gift = $('#gift'), lid = $('#gift .lid'), rays = $('#rays'), silWin = $('#silWin'), sils = $$('#silWin img');
+const lock = $('#lock'), hieu = $('#hieu'), q = $('#q'), cach = $('#cach');
+const title = $('#title'), titleW = $$('#title .w'), dateEl = $('#date'), clock = $('#clock'), cards = $$('.card');
+const pol = $('#pol'), end = $('#end'), endW = $$('#end .w');
+
+function pose(tl, name, at, squash = true) {
+  tl.set(poseImgs, { autoAlpha: 0 }, at).set(P[name], { autoAlpha: 1 }, at);
+  if (squash) tl.fromTo(pop, { scaleX: 1.07, scaleY: .91 }, { scaleX: 1, scaleY: 1, duration: .5, ease: 'elastic.out(1,.45)' }, at);
+}
+const pad = (tl, len) => tl.to({}, { duration: 0 }, len);
+
+/* Trạng thái đầu (= trạng thái cuối, để lặp liền mạch) */
+function initial() {
+  gsap.set(stage, { visibility: 'visible' });
+  gsap.set([gift, hieu, q, cach, title, dateEl, clock, pol, end, lock, rays, silWin, ...titleW, ...endW, ...sils, ...burst, ...rain], { autoAlpha: 0 });
+  gsap.set(gift, { x: 0, y: 0, scale: 1, rotation: 0 });
+  gsap.set(hieu, { x: 0, y: 0, scale: 1, rotation: 0 });
+  gsap.set(lid, { y: 0, rotation: 0 });
+  gsap.set(poseImgs, { autoAlpha: 0 }); gsap.set(P.idle, { autoAlpha: 1 });
+  gsap.set(strips, { y: 0 });
+  gsap.set(ph, { '--lx': LENS[0].x, '--ly': LENS[0].y, '--lr': 0 });
+}
+
+/* ================== CẢNH (bản đầy đủ) ================== */
+function scene1() { // 0–2s: hộp rơi, nảy 2 lần, rung
+  const tl = gsap.timeline();
+  tl.set(gift, { autoAlpha: 1, y: -1350, rotation: -8 }, 0)
+    .to(gift, { y: 0, rotation: 0, duration: .55, ease: 'power2.in' }, .12)
+    .to(gift, { scaleY: .8, scaleX: 1.14, duration: .07, ease: 'power1.out' }, .67)
+    .to(gift, { scaleY: 1, scaleX: 1, y: -150, duration: .25, ease: 'power2.out' }, .74)
+    .to(lid, { y: -22, duration: .12, yoyo: true, repeat: 1, ease: 'power1.out' }, .7)
+    .to(gift, { y: 0, duration: .22, ease: 'power2.in' }, .99)
+    .to(gift, { scaleY: .9, scaleX: 1.07, duration: .06 }, 1.21)
+    .to(gift, { scaleY: 1, scaleX: 1, y: -55, duration: .16, ease: 'power2.out' }, 1.27)
+    .to(gift, { y: 0, duration: .14, ease: 'power2.in' }, 1.43)
+    .to(gift, { keyframes: { rotation: [0, -3, 3, -2.5, 2, 0] }, duration: .45, ease: 'none' }, 1.55)
+    .to(lid, { keyframes: { y: [0, -12, 0, -9, 0] }, duration: .45, ease: 'none' }, 1.55);
+  return pad(tl, 2);
+}
+function scene2() { // 2–5s: Hiếu bước vào, dấu ?, ghé sát hộp
+  const tl = gsap.timeline();
+  tl.set(hieu, { autoAlpha: 1, x: -560 }, 0)
+    .to(hieu, { x: 0, duration: 1.05, ease: 'power2.out' }, 0)
+    .to(hieu, { y: -18, duration: .13, repeat: 7, yoyo: true, ease: 'sine.inOut' }, 0)
+    .to(hieu, { keyframes: { rotation: [0, -3, 3, -2, 2, 0] }, duration: 1.05, ease: 'none' }, 0)
+    .fromTo(q, { autoAlpha: 0, scale: 0, y: 40 }, { autoAlpha: 1, scale: 1, y: 0, duration: .5, ease: 'back.out(2.6)' }, 1.2)
+    .to(q, { keyframes: { rotation: [0, 14, -10, 8, 0] }, duration: .6, ease: 'none' }, 1.7)
+    .to(hieu, { rotation: 7, x: 70, duration: .65, ease: 'back.out(1.7)' }, 1.95);
+  return pad(tl, 3);
+}
+function scene3() { // 5–8s: hé nắp, ánh sáng, 3 bóng lướt qua
+  const tl = gsap.timeline();
+  tl.to(q, { autoAlpha: 0, scale: .5, duration: .25 }, 0)
+    .to(lid, { y: -150, x: 10, rotation: -13, duration: .5, ease: 'back.out(2.2)' }, 0)
+    .to(rays, { autoAlpha: 1, duration: .35 }, .05)
+    .to(silWin, { autoAlpha: 1, duration: .25 }, .05)
+    .fromTo(rays, { rotation: 0, scale: .85 }, { rotation: 40, scale: 1.08, duration: 2.95, ease: 'none' }, .05)
+    .to(lid, { y: -162, duration: .22, yoyo: true, repeat: 7, ease: 'sine.inOut' }, .55)
+    .to(hieu, { rotation: 11, x: 92, duration: .55, ease: 'power2.out' }, .35);
+  burst.forEach((b, i) => {
+    const a = -Math.PI * (.12 + .76 * (i / (burst.length - 1))), d = 220 + R() * 180;
+    tl.fromTo(b, { autoAlpha: 1, x: 606, y: 960, scale: 0, rotation: 0 },
+      { x: 606 + Math.cos(a) * d, y: 960 + Math.sin(a) * d, scale: .9 + R() * .6, rotation: 120, duration: .7, ease: 'power2.out' }, .15 + i * .03)
+      .to(b, { autoAlpha: 0, duration: .3 }, .62 + i * .03);
+  });
+  sils.forEach((s, i) => {
+    const at = .75 + i * .55;
+    tl.fromTo(s, { autoAlpha: 1, x: -260, y: 34 }, { x: 430, y: 0, duration: .3, ease: 'power1.inOut' }, at)
+      .set(s, { autoAlpha: 0 }, at + .3);
+  });
+  return pad(tl, 3);
+}
+function scene4() { // 8–10s: nắp sập, Hiếu giật mình rồi phụng phịu
+  const tl = gsap.timeline();
+  tl.to(lid, { y: 0, x: 0, rotation: 0, duration: .13, ease: 'power4.in' }, 0)
+    .to([rays, silWin], { autoAlpha: 0, duration: .1 }, .1)
+    .to(gift, { scaleY: .88, scaleX: 1.06, duration: .06 }, .13)
+    .to(gift, { scaleY: 1, scaleX: 1, duration: .5, ease: 'elastic.out(1,.4)' }, .19)
+    .fromTo(cach, { autoAlpha: 0, scale: .3, rotation: -24 }, { autoAlpha: 1, scale: 1, rotation: -8, duration: .35, ease: 'back.out(3)' }, .13)
+    .to(cach, { autoAlpha: 0, y: -50, duration: .3 }, 1.05)
+    .to(hieu, { rotation: 0, x: 20, y: -130, duration: .22, ease: 'power2.out' }, .16)
+    .to(hieu, { y: 0, duration: .26, ease: 'power2.in' }, .38);
+  pose(tl, 'jump', .16, false);
+  pose(tl, 'pout', .9);
+  tl.to(hieu, { keyframes: { x: [20, 8, 30, 12, 24, 20] }, duration: .45, ease: 'none' }, 1.0);
+  return pad(tl, 2);
+}
+function scene5() { // 10–13s: ổ khóa, đồng hồ cuộn về 00:00, chữ
+  const tl = gsap.timeline();
+  tl.fromTo(lock, { autoAlpha: 0, scale: 0, rotation: -40 }, { autoAlpha: 1, scale: 1, rotation: 0, duration: .5, ease: 'back.out(2.4)' }, 0)
+    .to(lock, { keyframes: { rotation: [0, 9, -7, 5, 0] }, duration: .5, ease: 'none' }, .55)
+    .fromTo(clock, { autoAlpha: 0, y: 50 }, { autoAlpha: 1, y: 0, duration: .45, ease: 'back.out(1.8)' }, .2);
+  strips.forEach((s, i) => {
+    tl.to(s, { y: -(STRIPS[i].length - 1) * CELL, duration: 1.0 + i * .18, ease: 'power3.out' }, .45);
+  });
+  tl.fromTo(cards, { scale: 1 }, { keyframes: { scale: [1, 1.12, 1] }, duration: .35, stagger: .05, ease: 'power1.out' }, 2.0)
+    .set(title, { autoAlpha: 1 }, .9)
+    .fromTo(titleW, { autoAlpha: 0, y: 40, scale: .6 }, { autoAlpha: 1, y: 0, scale: 1, duration: .45, stagger: .09, ease: 'back.out(2.2)' }, .9)
+    .fromTo(dateEl, { autoAlpha: 0, y: 30, rotation: -4 }, { autoAlpha: 1, y: 0, rotation: -2, duration: .55, ease: 'back.out(2)' }, 1.75);
+  return pad(tl, 3);
+}
+function scene6() { // 13–16.5s: polaroid mờ + kính lúp lướt 3 điểm
+  const tl = gsap.timeline();
+  tl.to([title, dateEl, clock], { autoAlpha: 0, y: -24, duration: .35, ease: 'power1.in' }, 0)
+    .to(gift, { x: 200, y: 440, scale: .42, duration: .8, ease: 'power3.inOut' }, 0)
+    .to(hieu, { x: -40, y: 440, scale: .42, duration: .8, ease: 'power3.inOut' }, 0)
+    .fromTo(pol, { autoAlpha: 0, y: 280, scale: .8, rotation: -14 }, { autoAlpha: 1, y: 0, scale: 1, rotation: -3, duration: .85, ease: 'back.out(1.5)' }, .15)
+    .set(ph, { '--lx': LENS[0].x, '--ly': LENS[0].y, '--lr': 0 }, .9)
+    .to(ph, lensTo({ r: LENS_R }, .32, 'back.out(2.2)'), .95)
+    .to(ph, lensTo({ x: LENS[1].x, y: LENS[1].y }, .55, 'power2.inOut'), 1.55)
+    .to(ph, lensTo({ x: LENS[2].x, y: LENS[2].y }, .45, 'power2.inOut'), 2.6);
+  return pad(tl, 3.5);
+}
+function scene7() { // 16.5–19s: kính lúp tắt, Hiếu chỉ tay, dòng chữ, lấp lánh rơi, mờ dần
+  const tl = gsap.timeline();
+  tl.to(ph, lensTo({ r: 0 }, .28, 'power2.in'), 0)
+    .to(hieu, { rotation: -10, duration: .4, ease: 'back.out(2)' }, .15);
+  pose(tl, 'point', .15);
+  tl.fromTo(endW, { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: .4, stagger: .06, ease: 'back.out(2)' }, .4)
+    .set(end, { autoAlpha: 1 }, .4);
+  rain.forEach((r, i) => {
+    const x = 60 + R() * 960, at = .3 + R() * 1.1;
+    tl.fromTo(r, { autoAlpha: 0, x, y: -80 + R() * 300, rotation: 0, scale: .5 + R() * .6 },
+      { autoAlpha: 1, y: '+=' + (700 + R() * 500), x: x + (R() - .5) * 120, rotation: 200, duration: 1.4, ease: 'sine.in' }, at)
+      .to(r, { autoAlpha: 0, duration: .35 }, at + 1.05);
+  });
+  tl.to([gift, hieu, pol, end], { autoAlpha: 0, duration: .6, ease: 'power1.in' }, 1.9);
+  return pad(tl, 2.5);
+}
+
+/* ================== Bản giảm chuyển động: chỉ mờ dần ================== */
+function reduced() {
+  const tl = gsap.timeline(), f = (t, at, d = .5) => tl.to(t, { autoAlpha: 1, duration: d }, at), o = (t, at, d = .5) => tl.to(t, { autoAlpha: 0, duration: d }, at);
+  let t = 0;
+  f(gift, .2); t += T.s1;
+  f(hieu, t + .2); f(q, t + 1.2); t += T.s2;
+  o(q, t); f([rays, silWin], t + .1); sils.forEach((s, i) => { tl.set(s, { x: 70 }, 0); f(s, t + .6 + i * .6, .2); o(s, t + .9 + i * .6, .2); }); t += T.s3;
+  o([rays, silWin], t, .3); tl.to(P.idle, { autoAlpha: 0, duration: .4 }, t + .3).to(P.pout, { autoAlpha: 1, duration: .4 }, t + .3); t += T.s4;
+  strips.forEach((s, i) => tl.set(s, { y: -(STRIPS[i].length - 1) * CELL }, 0));
+  f(lock, t); f(clock, t + .3); tl.set(titleW, { autoAlpha: 1 }, 0); f(title, t + .9); f(dateEl, t + 1.6); t += T.s5;
+  o([title, dateEl, clock, gift, hieu], t, .4);
+  tl.set(gift, { x: 200, y: 440, scale: .42 }, t + .45).set(hieu, { x: -40, y: 440, scale: .42 }, t + .45).set(pol, { rotation: -3 }, 0);
+  f([gift, hieu], t + .5); f(pol, t + .5, .7);
+  tl.set(ph, { '--lx': LENS[1].x, '--ly': LENS[1].y, '--lr': LENS_R }, t + .4);
+  tl.set(lens, { autoAlpha: 0 }, 0).to(lens, { autoAlpha: 1, duration: .5 }, t + 1.2); t += T.s6;
+  tl.to(P.pout, { autoAlpha: 0, duration: .4 }, t + .1).to(P.point, { autoAlpha: 1, duration: .4 }, t + .1);
+  tl.set(endW, { autoAlpha: 1 }, 0); f(end, t + .4); t += T.s7;
+  o([gift, hieu, pol, end], t - .6, .6);
+  return pad(tl, t);
+}
+
+/* ================== Ghép & chạy ================== */
+let master;
+function build() {
+  initial();
+  if (REDUCED) {
+    master = gsap.timeline({ paused: true, repeat: RECORD ? 0 : -1 });
+    master.add(reduced());
+    return;
+  }
+  gsap.to(breath, { scale: 1.02, duration: 1.3, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+  master = gsap.timeline({ paused: true, repeat: RECORD ? 0 : -1 });
+  const parts = [scene1(), scene2(), scene3(), scene4(), scene5(), scene6(), scene7()];
+  const keys = Object.keys(T);
+  parts.forEach((p, i) => { p.duration(T[keys[i]]); master.add(p, '>'); master.addLabel('c' + (i + 1), master.duration() - T[keys[i]]); });
+}
+
+$('#replay').addEventListener('click', () => master.restart());
+addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); master.paused(!master.paused()); } });
+
+const loaded = im => im.complete ? Promise.resolve() : new Promise(r => { im.onload = im.onerror = r; });
+const ready = Promise.all([
+  ...[...document.images].map(loaded),
+  document.fonts.load("900 98px 'Playfair Display'", 'Chưa tới giờ đâu Héo ơi'),
+  document.fonts.load("400 60px 'Pacifico'", '01 · 12'),
+  document.fonts.load("600 52px 'Be Vietnam Pro'", 'Có một món quà đang chờ. Nhớ thức nhé'),
+  document.fonts.load("800 15px 'Be Vietnam Pro'", 'Phát lại'),
+]).catch(() => {});
+// không bao giờ kẹt màn trống: tối đa 4 giây chờ tải
+Promise.race([ready, new Promise(r => setTimeout(r, 4000))]).then(() => {
+  sizePoses();
+  build();
+  window.__teaser = { master, T };
+  // ?record: hiện khung đầu (trời sao trống) trong `delay` giây cho kịp bấm quay, rồi chạy đúng 1 lần
+  const delay = RECORD ? parseFloat(qs.get('delay') || '1.5') : 0;
+  gsap.delayedCall(delay, () => master.play(0));
+});
+</script>
+</body>
+</html>
