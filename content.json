@@ -55,7 +55,7 @@
     },
     "toCredits": "After credit"
   },
-  "unlockAt": "2026-12-01T00:00:00+07:00",
+  "unlockAt": "2026-12-01T00:00:00+10:30",
   "audio": {
     "bgm": "assets/audio/rainbow.mp3",
     "bgmVolume": 0.35,

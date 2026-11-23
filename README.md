@@ -1,6 +1,6 @@
 # Thiệp sinh nhật Kim Hiếu · HAPPY OUR BIRTHDAY
 
-Thiệp web 8 màn tặng Huỳnh Như Kim Hiếu, mở lúc **00:00 ngày 01/12/2026**. Trang cuối là sinh nhật chung của Hiếu và Phú (cùng sinh 01/12/2002).
+Thiệp web 8 màn tặng Huỳnh Như Kim Hiếu, mở lúc **00:00 ngày 01/12/2026 giờ Úc** (UTC+10:30, tức 20:30 ngày 30/11 giờ Việt Nam). Trang cuối là sinh nhật chung của Hiếu và Phú (cùng sinh 01/12/2002).
 
 | Màn | Nội dung | Tương tác |
 |---|---|---|
@@ -21,7 +21,7 @@ npm run dev
 
 Mở `http://localhost:5179/?preview` (bỏ qua khóa giờ). Các tham số khác:
 
-- `?now=2026-11-30T23:59:50+07:00`: giả lập đồng hồ để xem đếm ngược rồi tự mở.
+- `?now=2026-11-30T23:59:50+10:30` (hoặc `?now=2026-11-30T20:29:50+07:00`): giả lập đồng hồ để xem đếm ngược rồi tự mở.
 - `#man=4`: vào thẳng màn 4.
 - `?debug`: có `window.__thiep` để điều khiển khi thử.
 
