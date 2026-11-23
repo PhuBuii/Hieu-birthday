@@ -1568,13 +1568,23 @@ function finishRace() {
 
 // ---------------------------------------------------------------- màn 4: leo núi
 const FLAG_AT = [0.17, 0.37, 0.57, 0.78];
+// cờ cam có biểu tượng theo thứ tự lời chúc: sức khỏe, tiền bạc, phiêu lưu, đồng đội
+const FLAG_ICON = ["flag-health", "flag-money", "flag-adventure", "flag-team"];
+const flagSrc = (n) => `assets/deco/mt/${n}.webp`;
+function setFlag(el, name) {
+  el.querySelectorAll("img").forEach((im) => (im.src = flagSrc(name)));
+  // bảng cắt mất tia lấp lánh của cờ 05: cờ sắp tới phát sáng bằng CSS (.next)
+  el.classList.toggle("next", name === "flag-glow");
+}
 function enter4() {
   const flagsBox = $(".mt-flags");
   flagsBox.innerHTML = "";
   C.scene4.flags.forEach((f, i) => {
     const el = document.createElement("div");
     el.className = "mt-flag";
-    el.innerHTML = `<i></i><b>${i + 1}</b>`;
+    el.innerHTML = '<img class="pole" alt=""><img class="cloth" alt="">';
+    // cờ sắp tới thì vàng lấp lánh, các cờ sau vàng trơn
+    setFlag(el, i === 0 ? "flag-glow" : "flag-wait");
     flagsBox.appendChild(el);
   });
   $(".s4").classList.remove("clear", "top");
@@ -1606,13 +1616,13 @@ function layoutClimb() {
   const g = climbGeom();
   $$(".mt-flag").forEach((el, i) => {
     const pt = g.at(FLAG_AT[i]);
-    el.style.left = pt.x + 18 + "px";
-    el.style.top = pt.y + "px";
+    el.style.left = pt.x + 24 + "px";
+    el.style.top = pt.y + 6 + "px";
   });
   const s = g.at(1);
   const st = $(".summit-stone");
-  st.style.left = s.x + 46 + "px";
-  st.style.top = s.y + 8 + "px";
+  st.style.left = s.x + 40 + "px";
+  st.style.top = s.y + 10 + "px";
   placeClimber(state.climb?.p || 0, g);
 }
 function placeClimber(p, g = climbGeom()) {
@@ -1661,7 +1671,17 @@ function arrive() {
   const c = state.climb;
   if (c.stop < FLAG_AT.length) {
     const f = C.scene4.flags[c.stop];
-    $$(".mt-flag")[c.stop].classList.add("reached");
+    const flags = $$(".mt-flag");
+    const fl = flags[c.stop];
+    fl.classList.add("reached");
+    setFlag(fl, FLAG_ICON[c.stop] || "flag-health");
+    if (flags[c.stop + 1]) setFlag(flags[c.stop + 1], "flag-glow");
+    if (!reduced) {
+      gsap.fromTo(fl, { scale: 0.55 }, { scale: 1, duration: 0.6, ease: "back.out(3)" });
+      const a = app.getBoundingClientRect(),
+        r = fl.getBoundingClientRect();
+      sparkles(r.left - a.left + r.width * 0.62, r.top - a.top + r.height * 0.25, 6, 46);
+    }
     const card = $(".wish-card");
     card.children[0].textContent = f.title;
     card.children[1].textContent = f.text;

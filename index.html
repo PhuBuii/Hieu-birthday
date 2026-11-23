@@ -127,13 +127,55 @@
             <path class="trail" d="M200 1760 C120 1680 300 1600 230 1500 C150 1400 90 1380 160 1270 C230 1170 320 1130 250 1020 C190 930 110 900 170 800 C230 700 300 640 250 540 C210 460 170 400 205 300 C215 260 225 220 230 170" fill="none" stroke="#FFF6EA" stroke-width="10" stroke-linecap="round" stroke-dasharray="2 18"/>
             <g class="rocks" fill="#B9B4AB" stroke="#3A2A20" stroke-width="4">
               <path d="M180 190 q10 -30 50 -32 q36 4 44 34 z"/>
-              <ellipse cx="90" cy="1690" rx="40" ry="18"/><ellipse cx="330" cy="1520" rx="34" ry="14"/><ellipse cx="60" cy="1090" rx="30" ry="12"/>
+            </g>
+            <!-- cây, bụi, đá dọc đường mòn: x,y là góc trên trái (tọa độ viewBox), đặt né đường mòn -->
+            <g class="mt-deco">
+              <image class="sway" href="assets/deco/mt/rock-c.webp" x="108" y="226" width="30" height="24"/>
+              <image class="sway" href="assets/deco/mt/bush-a.webp" x="282" y="356" width="40" height="32"/>
+              <image href="assets/deco/mt/rock-b.webp" x="98" y="440" width="40" height="29"/>
+              <image class="sway" href="assets/deco/mt/tree-b.webp" x="318" y="496" width="46" height="63"/>
+              <image class="sway slow" href="assets/deco/mt/tree-a.webp" x="44" y="636" width="46" height="63"/>
+              <image href="assets/deco/mt/cairn.webp" x="312" y="722" width="38" height="39"/>
+              <image href="assets/deco/mt/rock-a.webp" x="308" y="852" width="44" height="33"/>
+              <image class="sway" href="assets/deco/mt/bush-b.webp" x="62" y="946" width="42" height="36"/>
+              <image class="sway slow" href="assets/deco/mt/tree-d.webp" x="36" y="1120" width="47" height="64"/>
+              <image class="sway" href="assets/deco/mt/tree-c.webp" x="310" y="1226" width="46" height="63"/>
+              <image class="sway slow" href="assets/deco/mt/tree-b.webp" x="330" y="1356" width="42" height="58"/>
+              <image class="sway" href="assets/deco/mt/tree-a.webp" x="34" y="1496" width="46" height="63"/>
+              <image class="sway" href="assets/deco/mt/bush-a.webp" x="288" y="1630" width="44" height="35"/>
+            </g>
+            <!-- trại gốc dưới chân núi -->
+            <g class="mt-camp">
+              <image href="assets/deco/mt/tent.webp" x="36" y="1706" width="100" height="68"/>
+              <image href="assets/deco/mt/poles.webp" x="128" y="1730" width="38" height="42"/>
+              <image href="assets/deco/mt/backpack.webp" x="134" y="1742" width="36" height="36"/>
+              <image href="assets/deco/mt/bottle.webp" x="166" y="1762" width="11" height="22"/>
+              <image href="assets/deco/mt/hat.webp" x="52" y="1770" width="38" height="24"/>
+              <image href="assets/deco/mt/map.webp" x="236" y="1768" width="34" height="26"/>
+              <image href="assets/deco/mt/compass.webp" x="268" y="1774" width="16" height="20"/>
+              <g class="mt-sign">
+                <image href="assets/deco/mt/sign.webp" x="284" y="1694" width="72" height="84"/>
+                <text x="318" y="1715" data-t="scene4.sign.0"></text>
+                <text x="324" y="1737" data-t="scene4.sign.1"></text>
+              </g>
             </g>
           </svg>
+          <div class="mt-clouds">
+            <img class="cl c1" src="assets/deco/mt/cloud-a.webp" alt="">
+            <img class="cl c2" src="assets/deco/mt/cloud-d.webp" alt="">
+            <img class="cl c3" src="assets/deco/mt/cloud-b.webp" alt="">
+            <img class="cl c4" src="assets/deco/mt/cloud-c.webp" alt="">
+          </div>
           <div class="mt-flags"></div>
-          <div class="summit-stone"><span>24</span></div>
+          <div class="summit-stone"><img src="assets/deco/mt/stone.webp" alt=""><span>24</span></div>
         </div>
-        <div class="summit-view"></div>
+        <div class="summit-view">
+          <div class="sv-marker">
+            <img class="sv-flag" src="assets/deco/mt/vn-flag.webp" alt="">
+            <div class="sv-stone"><img src="assets/deco/mt/stone.webp" alt=""><span>24</span></div>
+          </div>
+          <img class="sv-cairn" src="assets/deco/mt/cairn.webp" alt="">
+        </div>
         <div class="mist m1"></div><div class="mist m2"></div><div class="mist m3"></div>
       </div>
       <h2 class="scene-title" data-t="scene4.title"></h2>

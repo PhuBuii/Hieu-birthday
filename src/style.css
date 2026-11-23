@@ -584,18 +584,46 @@ img { display: block; max-width: none; user-select: none; -webkit-user-drag: non
 .mountain-view { position: absolute; inset: 0; overflow: hidden; }
 .mountain { position: absolute; left: 0; right: 0; top: 0; height: 300%; will-change: transform; }
 .mt-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.mt-flag { position: absolute; width: 40px; margin: -58px 0 0 -6px; }
-.mt-flag i { display: block; width: 4px; height: 56px; background: var(--line); border-radius: 2px; }
-.mt-flag b { position: absolute; left: 4px; top: 2px; width: 34px; height: 24px; border: 2.5px solid var(--line); border-left: 0; border-radius: 0 6px 6px 0; background: var(--orange); color: #fff; font-size: 12px; font-weight: 800; display: grid; place-items: center; transform-origin: 0 50%; animation: flutter 1s ease-in-out infinite alternate; }
-.mt-flag.reached b { background: var(--gold); color: var(--ink); }
-@keyframes flutter { to { transform: skewY(6deg) scaleX(.92); } }
-.summit-stone { position: absolute; width: 64px; height: 70px; margin: -70px 0 0 -32px; display: grid; place-items: center; background: #D5D0C6; border: 3px solid var(--line); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
-.summit-stone span { margin-top: 26px; font-family: var(--font-title); font-weight: 900; font-size: 20px; color: var(--orange); }
-.mist { position: absolute; left: -30%; width: 160%; height: 22%; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(255, 255, 255, .85), rgba(255, 255, 255, 0) 70%); pointer-events: none; animation: drift 14s ease-in-out infinite alternate; transition: opacity 1.6s; }
+/* cờ ảnh: lớp "pole" là cả lá cờ trừ phần vải, lớp "cloth" chỉ phần vải và phấp phới quanh cán */
+.mt-flag { position: absolute; width: 48px; aspect-ratio: 151 / 220; transform: translate(-32%, -100%); transform-origin: 32% 100%; }
+.mt-flag img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.mt-flag .pole { clip-path: polygon(0 0, 37% 0, 37% 43%, 100% 43%, 100% 100%, 0 100%); }
+.mt-flag .cloth { clip-path: polygon(36% 0, 100% 0, 100% 43%, 36% 43%); transform-origin: 36% 26%; animation: flutter 1.1s ease-in-out infinite alternate; }
+.mt-flag:nth-child(2n) .cloth { animation-duration: 1.35s; animation-delay: -.5s; }
+.mt-flag.next { animation: flag-glow 1.4s ease-in-out infinite alternate; }
+@keyframes flag-glow { from { filter: drop-shadow(0 0 0 #F5C24200); } to { filter: drop-shadow(0 0 7px #FFE08A) drop-shadow(0 0 2px #fff); } }
+@keyframes flutter { from { transform: skewY(-3deg) scaleX(1); } to { transform: skewY(5deg) scaleX(.9); } }
+.summit-stone { position: absolute; width: 58px; transform: translate(-42%, -96%); }
+.summit-stone img, .sv-stone img { display: block; width: 100%; }
+.summit-stone span, .sv-stone span { position: absolute; left: 41%; top: 36%; translate: -50% -50%; font-family: var(--font-title); font-weight: 900; color: var(--orange); line-height: 1; text-shadow: 0 1px 0 #fff8; }
+.summit-stone span { font-size: 17px; }
+/* cây/bụi đung đưa quanh gốc */
+.mt-deco .sway { transform-box: fill-box; transform-origin: 50% 100%; animation: tree-sway 3.2s ease-in-out infinite alternate; }
+.mt-deco .sway.slow { animation-duration: 4.4s; animation-delay: -1.7s; }
+.mt-deco .sway:nth-child(3n) { animation-delay: -2.4s; }
+@keyframes tree-sway { from { transform: rotate(-2deg); } to { transform: rotate(2.2deg); } }
+.mt-sign text { font: 800 8.5px var(--font-body, system-ui); fill: #3A2A20; text-anchor: middle; dominant-baseline: middle; }
+/* mây trôi ngang qua sườn núi */
+.mt-clouds { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.mt-clouds .cl { position: absolute; left: 0; height: auto; animation: cloud-pass 70s linear infinite; }
+.mt-clouds .c1 { top: 5%; width: 42%; animation-delay: -22s; }
+.mt-clouds .c2 { top: 12%; width: 28%; animation-duration: 95s; animation-delay: -70s; opacity: .9; }
+.mt-clouds .c3 { top: 23%; width: 36%; animation-duration: 82s; animation-delay: -12s; opacity: .92; }
+.mt-clouds .c4 { top: 50%; width: 32%; animation-duration: 110s; animation-delay: -60s; opacity: .8; }
+@keyframes cloud-pass { from { transform: translateX(-105%); } to { transform: translateX(105cqw); } }
+.mist { position: absolute; left: -30%; width: 160%; height: 22%; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(255, 255, 255, .6), rgba(255, 255, 255, 0) 70%); pointer-events: none; animation: drift 14s ease-in-out infinite alternate; transition: opacity 1.6s; }
 .mist.m1 { top: 18%; } .mist.m2 { top: 48%; animation-duration: 18s; animation-direction: alternate-reverse; } .mist.m3 { top: 70%; animation-duration: 22s; }
 @keyframes drift { to { transform: translateX(14%); } }
 .s4.clear .mist { opacity: .15; }
 .summit-view { position: absolute; inset: 0; background: url(../assets/bg/nen-nui.webp) center bottom / cover no-repeat; opacity: 0; transition: opacity 1.4s; }
+/* đỉnh: bia 24 cắm cờ đỏ sao vàng bên trái, chồng đá bên phải, Hiếu đứng giữa */
+.sv-marker { position: absolute; left: 3%; bottom: calc(5cqh + var(--gap-b)); width: min(34cqw, 22cqh); }
+.sv-flag { position: absolute; left: 30%; bottom: 55%; width: 92%; transform-origin: 18% 100%; animation: vn-wave 2.4s ease-in-out infinite alternate; }
+@keyframes vn-wave { from { transform: rotate(-3deg) skewY(-2deg); } to { transform: rotate(2deg) skewY(3deg); } }
+.sv-stone { position: relative; }
+.sv-stone span { font-size: min(9cqw, 5.5cqh); }
+.sv-cairn { position: absolute; right: 4%; bottom: calc(5cqh + var(--gap-b)); width: min(20cqw, 13cqh); }
+@media (prefers-reduced-motion: reduce) { .mt-flag .cloth, .mt-deco .sway, .mt-clouds .cl, .sv-flag { animation: none; } }
 .s4.top .summit-view { opacity: 1; }
 .s4.top .mist { opacity: 0; transition-duration: 2.4s; }
 .wish-card { position: absolute; z-index: 45; left: 7%; right: 7%; top: 22cqh; padding: 14px 16px; border-radius: 18px; background: var(--cream); border: 2.5px solid var(--line); box-shadow: 0 5px 0 var(--line); }
