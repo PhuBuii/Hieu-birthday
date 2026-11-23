@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F26A2E">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Happy 24th, Kim Hiếu!</title>
+  <meta name="description" content="Một tấm thiệp nho nhỏ cho sinh nhật tuổi 24.">
+  <!-- Ảnh xem trước khi dán link: thay og:url và og:image bằng địa chỉ tuyệt đối khi đưa lên mạng -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Happy 24th, Kim Hiếu!">
+  <meta property="og:description" content="Mở thiệp đúng 00:00 ngày 01/12 nha.">
+  <meta property="og:image" content="assets/og-image.jpg">
+  <meta property="og:url" content="">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E%F0%9F%8E%82%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="src/fonts.css">
+  <link rel="stylesheet" href="src/style.css">
+  <link rel="stylesheet" href="src/todo.css">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"></div>
+  <main id="app" data-scene="0">
+
+    <!-- Màn 0: khởi động -->
+    <section class="scene s0 is-active" data-scene="0" aria-label="Đang tải" data-ta="ui.aria.loading">
+      <div class="loader">
+        <p class="loader-text" data-t="scene0.loading">Đang khởi động 24 km…</p>
+        <div class="loader-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Tiến trình tải" data-ta="ui.aria.progress">
+          <span class="loader-fill"></span>
+          <span class="loader-km"><b>0</b> km</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Màn 1: khóa giờ + hộp quà -->
+    <section class="scene s1" data-scene="1" aria-label="Hộp quà" data-ta="ui.aria.giftScene">
+      <div class="sparkles" aria-hidden="true"></div>
+      <div class="lock" hidden>
+        <h2 class="scene-title" data-t="scene1.lockedTitle"></h2>
+        <div class="countdown" role="timer" aria-live="off">
+          <div class="cd"><b data-cd="d">00</b><small></small></div>
+          <div class="cd"><b data-cd="h">00</b><small></small></div>
+          <div class="cd"><b data-cd="m">00</b><small></small></div>
+          <div class="cd"><b data-cd="s">00</b><small></small></div>
+        </div>
+      </div>
+      <div class="gift-wrap" hidden>
+        <p class="hint gift-hint" data-t="scene1.giftHint"></p>
+        <button class="gift" type="button" aria-label="Hộp quà, chạm 3 lần để mở" data-ta="ui.aria.gift">
+          <span class="gift-glow" aria-hidden="true"></span>
+          <img class="gift-body" src="assets/deco/gift-open.webp" alt="">
+          <img class="gift-lid" src="assets/deco/gift.webp" alt="">
+        </button>
+        <ol class="taps" aria-hidden="true"><li></li><li></li><li></li></ol>
+      </div>
+    </section>
+
+    <!-- Màn 2: hồ sơ Nhân Mã -->
+    <section class="scene s2" data-scene="2" aria-label="Hồ sơ Nhân Mã" data-ta="scene2.title">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="starfield" aria-hidden="true"></div>
+      <h2 class="scene-title" data-t="scene2.title"></h2>
+      <p class="hint" data-t="scene2.hint"></p>
+      <div class="constellation">
+        <!-- bầu trời thật quanh chòm Nhân Mã, khung 100 × 100 (tọa độ tính bằng tools/sgr_proj.py) -->
+        <svg class="con-sky" viewBox="0 0 100 100" aria-hidden="true">
+          <defs><filter id="mwBlur" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="5"/></filter></defs>
+          <!-- Ngân Hà: mặt phẳng thiên hà (b = 0°, l từ -8° đến 12°); tâm Ngân Hà Sgr A* nằm ngay ngoài vòi ấm -->
+          <g class="mw" filter="url(#mwBlur)">
+            <path d="M133.4 94.5 L123.3 73.2 L113.4 52.4 L103.6 31.8 L93.8 11.2 L83.9 -9.6"/>
+            <circle cx="113.4" cy="52.4" r="9"/>
+          </g>
+          <!-- "hơi nước" bốc lên từ vòi ấm -->
+          <path class="steam" d="M89 55 C93 50 90 46 94 41 S95 33 99 28" pathLength="1"/>
+          <!-- nghĩa gốc: cung λ-δ-ε, dây cung, mũi tên qua δ tới γ² (Alnasl = "đầu mũi tên"), chĩa về Antares -->
+          <g class="bow">
+            <path class="bow-string" d="M61.2 29.3 L54.6 50.9 L64.6 79.7" pathLength="1"/>
+            <path class="bow-arc" d="M61.2 29.3 Q75.5 54.1 64.6 79.7" pathLength="1"/>
+            <path class="arrow-shaft" d="M54.6 50.9 L87.5 58.6" pathLength="1"/>
+            <path class="arrow-head" d="M83.1 59.8 L87.5 58.6 L84.1 55.6" pathLength="1"/>
+            <path class="arrow-aim" d="M89.5 59.1 L100 61.5"/>
+          </g>
+          <!-- biểu tượng ♐ -->
+          <path class="glyph" d="M38 18 L52 4 M44 4 H52 V12 M38.5 9.5 L46.5 17.5" pathLength="1"/>
+        </svg>
+        <svg class="con-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <div class="con-stars"></div>
+      </div>
+      <article class="profile" hidden aria-live="polite">
+        <p class="pf-label" data-t="scene2.card.label"></p>
+        <h3 class="pf-name"></h3>
+        <p class="pf-meta"><span class="pf-birth"></span> · <span class="pf-sign"></span> <span class="pf-glyph" aria-hidden="true">♐&#xFE0E;</span></p>
+        <p class="pf-traits" data-t="scene2.card.traits"></p>
+        <ul class="pf-stats"></ul>
+        <p class="pf-note" data-t="scene2.card.note"></p>
+      </article>
+    </section>
+
+    <!-- Màn 3: đường chạy -->
+    <section class="scene s3" data-scene="3" aria-label="Đường chạy 24 năm" data-ta="scene3.title">
+      <div class="race" aria-hidden="true">
+        <div class="bg race-bg"></div>
+        <div class="race-world"></div>
+      </div>
+      <h2 class="scene-title" data-t="scene3.title"></h2>
+      <div class="watch" role="status" aria-live="off">
+        <span class="watch-face"><b class="watch-km">0.0</b><small>km / 24</small></span>
+      </div>
+      <p class="hint" data-t="scene3.hint"></p>
+      <div class="mile-pop" hidden aria-live="polite"><b></b><span></span></div>
+      <button class="tap-zone" type="button" aria-label="Chạm để tăng tốc" data-ta="ui.aria.tapRun"></button>
+    </section>
+
+    <!-- Màn 4: leo núi -->
+    <section class="scene s4" data-scene="4" aria-label="Chinh phục đỉnh 24" data-ta="scene4.title">
+      <div class="mountain-view" aria-hidden="true">
+        <div class="mountain">
+          <svg class="mt-svg" viewBox="0 -340 400 2140" preserveAspectRatio="xMidYMax slice">
+            <defs>
+              <linearGradient id="mtSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9EEF0"/><stop offset=".6" stop-color="#C9D6DB"/><stop offset="1" stop-color="#AFC3CE"/></linearGradient>
+            </defs>
+            <rect y="-340" width="400" height="2140" fill="url(#mtSky)"/>
+            <path d="M-20 1800 L-20 420 Q40 300 110 330 Q170 180 230 150 Q300 220 330 300 Q380 280 420 360 L420 1800Z" fill="#8FA89B" stroke="#3A2A20" stroke-width="5"/>
+            <path d="M-20 1800 L-20 760 Q60 640 130 700 Q210 560 290 640 Q360 600 420 680 L420 1800Z" fill="#6E8F7E" stroke="#3A2A20" stroke-width="5"/>
+            <path d="M-20 1800 L-20 1200 Q80 1090 170 1160 Q260 1060 340 1120 Q390 1100 420 1140 L420 1800Z" fill="#5B7A6A" stroke="#3A2A20" stroke-width="5"/>
+            <path class="trail" d="M200 1760 C120 1680 300 1600 230 1500 C150 1400 90 1380 160 1270 C230 1170 320 1130 250 1020 C190 930 110 900 170 800 C230 700 300 640 250 540 C210 460 170 400 205 300 C215 260 225 220 230 170" fill="none" stroke="#FFF6EA" stroke-width="10" stroke-linecap="round" stroke-dasharray="2 18"/>
+            <g class="rocks" fill="#B9B4AB" stroke="#3A2A20" stroke-width="4">
+              <path d="M180 190 q10 -30 50 -32 q36 4 44 34 z"/>
+              <ellipse cx="90" cy="1690" rx="40" ry="18"/><ellipse cx="330" cy="1520" rx="34" ry="14"/><ellipse cx="60" cy="1090" rx="30" ry="12"/>
+            </g>
+          </svg>
+          <div class="mt-flags"></div>
+          <div class="summit-stone"><span>24</span></div>
+        </div>
+        <div class="summit-view"></div>
+        <div class="mist m1"></div><div class="mist m2"></div><div class="mist m3"></div>
+      </div>
+      <h2 class="scene-title" data-t="scene4.title"></h2>
+      <p class="hint" data-t="scene4.hint"></p>
+      <div class="wish-card" hidden role="status"><b></b><p></p></div>
+      <button class="tap-zone climb-zone" type="button" aria-label="Leo tiếp" data-ta="ui.aria.climb"></button>
+    </section>
+
+    <!-- Màn 5: cuộn phim -->
+    <section class="scene s5" data-scene="5" aria-label="Cuộn phim" data-ta="scene5.title">
+      <div class="bg" aria-hidden="true"><span class="glint"></span></div>
+      <h2 class="scene-title" data-t="scene5.title"></h2>
+      <p class="hint" data-t="scene5.hint"></p>
+      <div class="prints" aria-live="polite"></div>
+      <div class="film" hidden><div class="film-track"></div></div>
+      <button class="shutter" type="button" aria-label="Chụp" data-ta="ui.aria.shutter">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="13" width="38" height="27" rx="6" fill="#2A2122"/><rect x="15" y="8" width="14" height="8" rx="3" fill="#2A2122"/><circle cx="24" cy="27" r="9" fill="#FFF6EA" stroke="#2A2122" stroke-width="3"/><circle cx="24" cy="27" r="4" fill="#2A2122"/></svg>
+        <span class="shutter-count"></span>
+      </button>
+      <div class="flash" aria-hidden="true"></div>
+    </section>
+
+    <!-- Màn 6: thư -->
+    <section class="scene s6" data-scene="6" aria-label="Thư của Phú" data-ta="ui.aria.letter">
+      <article class="letter-card">
+        <h2 class="letter-title" data-t="scene6.title"></h2>
+        <div class="letter-body" aria-live="polite"></div>
+        <div class="letter-sign"><p data-t="scene6.signature"></p><p class="signer" data-t="scene6.signer"></p></div>
+      </article>
+    </section>
+
+    <!-- Màn 7: HAPPY OUR BIRTHDAY -->
+    <section class="scene s7" data-scene="7" aria-label="Happy our birthday">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="shade" aria-hidden="true"></div>
+      <h2 class="hob-title" aria-live="polite"><span class="hob-text"></span><em class="hob-sub" data-t="scene7.sub"></em></h2>
+      <img class="popper p-l" src="assets/deco/popper.webp" alt="" aria-hidden="true">
+      <img class="popper p-r" src="assets/deco/popper.webp" alt="" aria-hidden="true">
+      <button class="cake" type="button" aria-label="Bánh sinh nhật, chạm để thổi nến" data-ta="ui.aria.cake">
+        <span class="candle c2"><span class="flame"><img src="assets/deco/flame-1.webp" alt=""><img src="assets/deco/flame-2.webp" alt=""><img src="assets/deco/flame-3.webp" alt=""></span><img class="wax" src="assets/deco/candle-2.webp" alt=""></span>
+        <span class="candle c4"><span class="flame"><img src="assets/deco/flame-2.webp" alt=""><img src="assets/deco/flame-3.webp" alt=""><img src="assets/deco/flame-1.webp" alt=""></span><img class="wax" src="assets/deco/candle-4.webp" alt=""></span>
+        <img class="cake-img" src="assets/deco/cake.webp" alt="">
+      </button>
+      <p class="hint blow-hint" data-t="scene7.blowHint"></p>
+      <p class="hob-wish" data-t="scene7.wish" hidden></p>
+      <div class="end-actions" hidden>
+        <button class="btn btn-main" type="button" data-act="save" data-t="scene7.save"></button>
+        <button class="btn btn-ghost" type="button" data-act="replay" data-t="scene7.replay"></button>
+      </div>
+    </section>
+
+    <!-- Màn 8: after credit (nhạc, ảnh thật, chibi tải về) -->
+    <section class="scene s8" data-scene="8" aria-label="After credit" data-ta="scene8.title">
+      <div class="cr-scroll">
+        <h2 class="scene-title" data-t="scene8.title"></h2>
+        <p class="cr-intro" data-t="scene8.intro"></p>
+        <section class="cr-block">
+          <h3 data-t="scene8.musicTitle"></h3>
+          <div class="cr-tracks"></div>
+          <p class="cr-why" data-t="scene8.why"></p>
+        </section>
+        <section class="cr-block">
+          <h3 data-t="scene8.photosTitle"></h3>
+          <p class="cr-note" data-t="scene8.photosNote"></p>
+          <div class="cr-photos"></div>
+        </section>
+        <section class="cr-block">
+          <h3 data-t="scene8.chibiTitle"></h3>
+          <p class="cr-note" data-t="scene8.chibiNote"></p>
+          <div class="cr-chibi"></div>
+        </section>
+        <dl class="cr-roll"></dl>
+        <figure class="cr-army"><p class="cr-end" data-t="scene8.end"></p><img src="assets/phu/bodoi.webp" alt="Chibi Phú Bùi mặc quân phục bộ đội" data-ta-alt="scene8.armyAlt"></figure>
+        <button class="btn btn-main cr-replay" type="button" data-t="scene8.replay"></button>
+      </div>
+    </section>
+
+    <!-- Lớp chung: nhân vật, lời thoại, hiệu ứng -->
+    <div class="fx" aria-hidden="true"></div>
+    <div class="char hieu" id="hieu" role="img" aria-label="Chibi Kim Hiếu" data-ta="ui.aria.hieu">
+      <div class="char-shadow" aria-hidden="true"></div>
+      <div class="hieu-rig"></div>
+    </div>
+    <div class="char phu is-hidden" id="phu" role="img" aria-label="Chibi Phú" data-ta="ui.aria.phu">
+      <div class="char-shadow" aria-hidden="true"></div>
+      <div class="phu-rig"></div>
+    </div>
+    <!-- vạch đích màn 3: nằm trước nhân vật cho tới khi bị chạy đứt -->
+    <div class="finish-line" aria-hidden="true"><span class="post l"></span><span class="post r"></span><span class="tape l"></span><span class="tape r"></span><b>FINISH · 24</b></div>
+    <div class="say" id="say" role="status" hidden><p></p></div>
+    <!-- ảnh thật hiện sau khoảnh khắc hoạt hình (về đích màn 3, lên đỉnh màn 4); chạm để đóng -->
+    <figure class="real-pop" hidden><img alt=""><figcaption></figcaption></figure>
+
+    <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-card">
+        <div class="modal-photo"></div>
+        <h3 id="modal-title"></h3>
+        <p class="modal-text"></p>
+        <div class="modal-actions"></div>
+        <button class="btn btn-main modal-close" type="button" data-t="ui.close">Đóng</button>
+      </div>
+    </div>
+
+    <nav class="hud" aria-label="Điều khiển thiệp" data-ta="ui.aria.hud">
+      <button class="icon-btn sound-btn" type="button" aria-pressed="false" aria-label="Bật âm thanh">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path class="wave" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="mute" d="M16 9l6 6M22 9l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icon-btn lang-btn" type="button" lang="en" aria-label="Switch to English">EN</button>
+      <ol class="dots" aria-hidden="true"></ol>
+      <button class="btn btn-next" type="button" hidden>Tiếp tục <span aria-hidden="true">›</span></button>
+    </nav>
+    <div class="toast" role="status" hidden></div>
+  </main>
+
+  <noscript><p style="padding:24px">Thiệp cần bật JavaScript để xem. / Please enable JavaScript to view this card.</p></noscript>
+  <script src="vendor/gsap.min.js"></script>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

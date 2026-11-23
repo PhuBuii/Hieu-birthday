@@ -1,0 +1,13 @@
+{
+  "name": "thiep-sinh-nhat-kim-hieu",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Thiệp sinh nhật web tặng Kim Hiếu - HAPPY OUR BIRTHDAY 01.12.2026",
+  "scripts": {
+    "dev": "node tools/serve.mjs",
+    "build": "node tools/build.mjs",
+    "preview": "node tools/serve.mjs dist",
+    "check": "node tools/check-content.mjs"
+  },
+  "type": "module"
+}

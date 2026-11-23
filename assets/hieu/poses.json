@@ -1,0 +1,394 @@
+{
+ "_ghiChu": "Tạo bởi tools/build_hieu.py. h: chiều cao so với dáng đứng thẳng, ax: tâm thân theo bề ngang ảnh, face: có lớp mắt/miệng.",
+ "poses": {
+  "wave": {
+   "file": "wave.webp",
+   "h": 1.0,
+   "ax": 0.547,
+   "ar": 0.532,
+   "head": [
+    0.546,
+    0.008
+   ]
+  },
+  "signature": {
+   "file": "signature.webp",
+   "h": 1.0,
+   "ax": 0.519,
+   "ar": 0.4995,
+   "head": [
+    0.517,
+    0.007
+   ]
+  },
+  "laugh": {
+   "file": "laugh.webp",
+   "h": 1.001,
+   "ax": 0.502,
+   "ar": 0.4929,
+   "head": [
+    0.501,
+    0.008
+   ]
+  },
+  "pout": {
+   "file": "pout.webp",
+   "h": 1.0,
+   "ax": 0.5,
+   "ar": 0.4893,
+   "head": [
+    0.498,
+    0.007
+   ]
+  },
+  "finish": {
+   "file": "finish.webp",
+   "h": 0.9816,
+   "ax": 0.436,
+   "ar": 0.4965,
+   "head": [
+    0.449,
+    0.008
+   ]
+  },
+  "runA": {
+   "file": "runA.webp",
+   "h": 0.9494,
+   "ax": 0.55,
+   "ar": 0.5787,
+   "head": [
+    0.548,
+    0.01
+   ]
+  },
+  "runB": {
+   "file": "runB.webp",
+   "h": 0.9494,
+   "ax": 0.55,
+   "ar": 0.5642,
+   "head": [
+    0.546,
+    0.01
+   ]
+  },
+  "medal": {
+   "file": "medal.webp",
+   "h": 0.9356,
+   "ax": 0.587,
+   "ar": 0.5025,
+   "head": [
+    0.549,
+    0.01
+   ]
+  },
+  "summit": {
+   "file": "summit.webp",
+   "h": 1.0458,
+   "ax": 0.373,
+   "ar": 0.5533,
+   "head": [
+    0.385,
+    0.058
+   ]
+  },
+  "walk": {
+   "file": "walk.webp",
+   "h": 0.9786,
+   "ax": 0.466,
+   "ar": 0.4587,
+   "head": [
+    0.463,
+    0.012
+   ]
+  },
+  "point": {
+   "file": "point.webp",
+   "h": 0.9969,
+   "ax": 0.393,
+   "ar": 0.5544,
+   "head": [
+    0.372,
+    0.012
+   ]
+  },
+  "rest": {
+   "file": "rest.webp",
+   "h": 0.9191,
+   "ax": 0.5,
+   "ar": 0.5631,
+   "head": [
+    0.541,
+    0.015
+   ]
+  },
+  "camera": {
+   "file": "camera.webp",
+   "h": 1.0,
+   "ax": 0.498,
+   "ar": 0.5037,
+   "head": [
+    0.497,
+    0.006
+   ]
+  },
+  "camlaugh": {
+   "file": "camlaugh.webp",
+   "h": 1.0,
+   "ax": 0.5,
+   "ar": 0.5037,
+   "head": [
+    0.499,
+    0.007
+   ]
+  },
+  "polaroid": {
+   "file": "polaroid.webp",
+   "h": 1.0009,
+   "ax": 0.554,
+   "ar": 0.5586,
+   "head": [
+    0.552,
+    0.007
+   ]
+  },
+  "archer": {
+   "file": "archer.webp",
+   "h": 0.966,
+   "ax": 0.411,
+   "ar": 0.7493,
+   "head": [
+    0.439,
+    0.014
+   ]
+  },
+  "stargaze": {
+   "file": "stargaze.webp",
+   "h": 0.9823,
+   "ax": 0.474,
+   "ar": 0.6496,
+   "head": [
+    0.498,
+    0.012
+   ]
+  },
+  "surprised": {
+   "file": "surprised.webp",
+   "h": 0.9363,
+   "ax": 0.5,
+   "ar": 0.7103,
+   "head": [
+    0.501,
+    0.009
+   ]
+  },
+  "touched": {
+   "file": "touched.webp",
+   "h": 1.0,
+   "ax": 0.499,
+   "ar": 0.5112,
+   "head": [
+    0.496,
+    0.01
+   ]
+  },
+  "peace": {
+   "file": "peace.webp",
+   "h": 1.0,
+   "ax": 0.514,
+   "ar": 0.51,
+   "head": [
+    0.511,
+    0.01
+   ]
+  },
+  "letter": {
+   "file": "letter.webp",
+   "h": 0.9975,
+   "ax": 0.497,
+   "ar": 0.51,
+   "head": [
+    0.495,
+    0.01
+   ]
+  },
+  "blow": {
+   "file": "blow.webp",
+   "h": 0.9967,
+   "ax": 0.5,
+   "ar": 0.5066,
+   "head": [
+    0.495,
+    0.013
+   ]
+  },
+  "highfive": {
+   "file": "highfive.webp",
+   "h": 1.0,
+   "ax": 0.434,
+   "ar": 0.5679,
+   "head": [
+    0.431,
+    0.013
+   ]
+  },
+  "jump": {
+   "file": "jump.webp",
+   "h": 0.9785,
+   "ax": 0.497,
+   "ar": 0.5364,
+   "head": [
+    0.494,
+    0.014
+   ]
+  },
+  "cheer": {
+   "file": "cheer.webp",
+   "h": 1.0,
+   "ax": 0.501,
+   "ar": 0.5745,
+   "head": [
+    0.497,
+    0.013
+   ]
+  },
+  "idle": {
+   "file": "idle.webp",
+   "h": 1.0,
+   "ax": 0.5,
+   "ar": 0.4979,
+   "face": true,
+   "head": [
+    0.499,
+    0.004
+   ]
+  }
+ },
+ "face": {
+  "eye-open-l": {
+   "file": "face-eye-open-l.webp",
+   "left": 22.23,
+   "top": 21.69,
+   "width": 20.106
+  },
+  "eye-open-r": {
+   "file": "face-eye-open-r.webp",
+   "left": 56.195,
+   "top": 21.69,
+   "width": 20.106
+  },
+  "mouth-smile": {
+   "file": "face-mouth-smile.webp",
+   "left": 40.456,
+   "top": 32.051,
+   "width": 17.725
+  },
+  "eye-closed-l": {
+   "file": "face-eye-closed-l.webp",
+   "left": 23.024,
+   "top": 25.759,
+   "width": 18.519
+  },
+  "eye-closed-r": {
+   "file": "face-eye-closed-r.webp",
+   "left": 56.989,
+   "top": 25.759,
+   "width": 18.519
+  },
+  "eye-happy-l": {
+   "file": "face-eye-happy-l.webp",
+   "left": 23.817,
+   "top": 24.292,
+   "width": 16.931
+  },
+  "eye-happy-r": {
+   "file": "face-eye-happy-r.webp",
+   "left": 57.783,
+   "top": 24.292,
+   "width": 16.931
+  },
+  "eye-star-l": {
+   "file": "face-eye-star-l.webp",
+   "left": 23.024,
+   "top": 22.085,
+   "width": 18.519
+  },
+  "eye-star-r": {
+   "file": "face-eye-star-r.webp",
+   "left": 56.989,
+   "top": 22.085,
+   "width": 18.519
+  },
+  "eye-heart-l": {
+   "file": "face-eye-heart-l.webp",
+   "left": 23.288,
+   "top": 22.283,
+   "width": 17.989
+  },
+  "eye-heart-r": {
+   "file": "face-eye-heart-r.webp",
+   "left": 57.254,
+   "top": 22.283,
+   "width": 17.989
+  },
+  "eye-wink-l": {
+   "file": "face-eye-wink-l.webp",
+   "left": 23.024,
+   "top": 22.085,
+   "width": 18.519
+  },
+  "eye-wink-r": {
+   "file": "face-eye-wink-r.webp",
+   "left": 57.915,
+   "top": 25.171,
+   "width": 16.667
+  },
+  "eye-teary-l": {
+   "file": "face-eye-teary-l.webp",
+   "left": 23.024,
+   "top": 22.085,
+   "width": 18.519
+  },
+  "eye-teary-r": {
+   "file": "face-eye-teary-r.webp",
+   "left": 56.989,
+   "top": 22.085,
+   "width": 18.519
+  },
+  "mouth-grin": {
+   "file": "face-mouth-grin.webp",
+   "left": 42.572,
+   "top": 31.994,
+   "width": 13.492
+  },
+  "mouth-o": {
+   "file": "face-mouth-o.webp",
+   "left": 46.276,
+   "top": 32.206,
+   "width": 6.085
+  },
+  "mouth-cat": {
+   "file": "face-mouth-cat.webp",
+   "left": 42.969,
+   "top": 32.38,
+   "width": 12.698
+  },
+  "mouth-pout": {
+   "file": "face-mouth-pout.webp",
+   "left": 44.027,
+   "top": 32.655,
+   "width": 10.582
+  },
+  "mouth-tongue": {
+   "file": "face-mouth-tongue.webp",
+   "left": 42.44,
+   "top": 31.823,
+   "width": 13.757
+  },
+  "sweat": {
+   "file": "face-sweat.webp",
+   "left": 69.675,
+   "top": 19.495,
+   "width": 5.556
+  }
+ }
+}

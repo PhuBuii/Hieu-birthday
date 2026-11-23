@@ -1,0 +1,386 @@
+{
+  "_ghiChu": "Toàn bộ chữ của thiệp. Chỗ ghi [điền ...] là chỗ Phú cần viết. Khi đủ, đặt draftMode = false. Ảnh thật: chạy python -I tools/strip_exif.py <thư-mục-ảnh-gốc> để xóa EXIF và nén vào assets/photos/.",
+  "draftMode": false,
+  "meta": {
+    "title": "Happy 24th, Kim Hiếu!",
+    "description": "Một tấm thiệp nho nhỏ cho sinh nhật tuổi 24.",
+    "siteUrl": ""
+  },
+  "people": {
+    "hieu": {
+      "fullName": "Huỳnh Như Kim Hiếu",
+      "name": "Kim Hiếu",
+      "call": "Hiếu",
+      "birth": "01.12.2002"
+    },
+    "phu": {
+      "fullName": "Phú Bùi",
+      "name": "Phú",
+      "birth": "01.12.2002"
+    }
+  },
+  "ui": {
+    "_ghiChu": "Chữ trên nút và nhãn cho trình đọc màn hình.",
+    "lang": "EN",
+    "langLabel": "Switch to English",
+    "next": "Tiếp tục",
+    "toProfile": "Mở hồ sơ",
+    "toRace": "Chạy thôi",
+    "toClimb": "Lên núi",
+    "toPhotos": "Rửa ảnh",
+    "toLetter": "Mở thư",
+    "toLast": "Trang cuối",
+    "soundOn": "Bật âm thanh",
+    "soundOff": "Tắt âm thanh",
+    "star": "Ngôi sao",
+    "photo": "Ảnh",
+    "close": "Đóng",
+    "download": "Tải ảnh",
+    "share": "Chia sẻ",
+    "keepsakeAlt": "Ảnh kỷ niệm HAPPY OUR BIRTHDAY",
+    "keepsakeFail": "Chưa tạo được ảnh, thử lại nha.",
+    "aria": {
+      "loading": "Đang tải",
+      "progress": "Tiến trình tải",
+      "giftScene": "Hộp quà",
+      "gift": "Hộp quà, chạm 3 lần để mở",
+      "tapRun": "Chạm để tăng tốc",
+      "climb": "Leo tiếp",
+      "shutter": "Chụp",
+      "letter": "Thư của Phú",
+      "cake": "Bánh sinh nhật, chạm để thổi nến",
+      "hieu": "Chibi Kim Hiếu",
+      "phu": "Chibi Phú",
+      "hud": "Điều khiển thiệp"
+    },
+    "toCredits": "After credit"
+  },
+  "unlockAt": "2026-12-01T00:00:00+07:00",
+  "audio": {
+    "bgm": "assets/audio/rainbow.mp3",
+    "bgmVolume": 0.35,
+    "sfxVolume": 0.6,
+    "party": "assets/audio/happy-birthday.mp3",
+    "_ghiChu": "bgm: nhạc nền cả thiệp (Aetheric - Rainbow, freetouse.com, cần ghi nguồn: đã ghi ở màn after credit). party: Happy Birthday lúc thổi nến (mojihaza, Pixabay)."
+  },
+  "backgrounds": {
+    "s2": "",
+    "s3": "",
+    "s4": "",
+    "s5": "",
+    "s7": ""
+  },
+  "scene0": {
+    "loading": "Đang khởi động 24 km…"
+  },
+  "scene1": {
+    "lockedTitle": "Chưa tới giờ nha!",
+    "lockedSay": "Tò mò dữ vậy? Đợi đúng 00:00 ngày 01/12 mới được mở quà.",
+    "units": [
+      "ngày",
+      "giờ",
+      "phút",
+      "giây"
+    ],
+    "giftHint": "Chạm 3 lần để mở quà",
+    "lines": [
+      "Ủa ai gọi Héo đó?",
+      "Hôm nay là ngày của Héo hả? Biết rồi nha!"
+    ],
+    "phuPeek": "Psst… Phú Bùii đây. Hôm nay có người tròn 24 tuổi đó."
+  },
+  "scene2": {
+    "title": "Hồ sơ Nhân Mã",
+    "hint": "Chạm lần lượt các ngôi sao đang sáng",
+    "say": "Nối sao giúp Héo coi là gì?",
+    "done": "Nhân Mã! Chòm sao của dân thích đi muôn nơi.",
+    "card": {
+      "label": "Hồ sơ mật · Cấp độ 24",
+      "sign": "Nhân Mã",
+      "traits": "Tự do · Ham phiêu lưu · Lạc quan · Thẳng như ruột ngựa",
+      "stats": [
+        {
+          "label": "Độ lì khi leo núi",
+          "value": 99
+        },
+        {
+          "label": "Tốc độ về đích",
+          "value": 95
+        },
+        {
+          "label": "Khả năng bắt khoảnh khắc",
+          "value": 98
+        },
+        {
+          "label": "Đam mê bánh tráng !!!!",
+          "value": 100
+        },
+        {
+          "label": "Khả năng ngồi yên một chỗ",
+          "value": 3
+        }
+      ],
+      "note": "Cảnh báo: rủ đi chơi là đi liền, không cần lý do."
+    },
+    "reveal": "Thấy chưa? 8 sao “ấm trà” này chính là cây cung và mũi tên của Nhân Mã, chĩa thẳng về sao Antares luôn!",
+    "sky": {
+      "alnasl": "Alnasl\nđầu mũi tên",
+      "kausAustralis": "Kaus Australis · sáng nhất",
+      "nunki": "Nunki",
+      "antares": "về phía\nAntares →",
+      "milkyWay": "NGÂN HÀ"
+    }
+  },
+  "scene3": {
+    "title": "Đường chạy 24 năm",
+    "hint": "Chạm liên tục để tăng tốc",
+    "say": "Chạy cùng Héo nha! Chạm để tăng tốc!",
+    "milestones": [
+      {
+        "km": 0,
+        "label": "Xuất phát 01.12.2002",
+        "text": "Chúc Héo đi đâu làm gì đều thuận lợi. Cái gì khó quá thì 'vừa khóc vừa làm' chứ quyết không bỏ cuộc nhenn!"
+      },
+      {
+        "km": 6,
+        "label": "Trạm nước",
+        "text": "Tiếp sức cho Héo để Héo luôn có đủ năng lượng, tràn trề, ê hề, quá trời quá đất năng lượng để tiếp bước hành trình nhó"
+      },
+      {
+        "km": 12,
+        "label": "Nửa đường",
+        "text": "Chúc Héo lương tăng vèo vèo như nhịp tim lúc chạy dốc."
+      },
+      {
+        "km": 18,
+        "label": "Bức tường",
+        "text": "Không có khó khăn nào cản bước được ae Nhân mã tụi mình đâuu nhaa. Tuổi 24 có cái gì cản đường thì húc tung luôn như vậy. Tuổi 24 bẻ gãy sừng trâu!"
+      },
+      {
+        "km": 24,
+        "label": "Về đích 01.12.2026",
+        "text": "Chúc Héooo về đích năm nào cũng có ảnh chụp đẹp, cũng slayyyyyy~"
+      }
+    ],
+    "finish": "Về đích tuổi 24! Chúc Héoooo về đích năm nào cũng có ảnh chụp đẹp, cũng slayyyyyy~",
+    "realPhoto": {
+      "photo": "assets/photos/ve-dich.webp",
+      "caption": "Bản gốc ngoài đời: Gold Coast Marathon, về đích vẫn còn sức tạo dáng",
+      "alt": "Hiếu về đích Gold Coast Marathon, giơ hai ngón tay"
+    }
+  },
+  "scene4": {
+    "title": "Chinh phục đỉnh 24",
+    "hint": "Vuốt lên hoặc chạm để leo tiếp",
+    "say": "Leo núi thì Héo chưa ngán ai đâu!",
+    "flags": [
+      {
+        "title": "Cờ 1 · Sức khỏe",
+        "text": "Chúc Héo sức khỏe tràn trề, chinh phục hết ngọn núi này đến ngọn núi khác~"
+      },
+      {
+        "title": "Cờ 2 · Tiền bạc",
+        "text": "Chúc Héo tiền bạc dồi dào để có tiền mua bib chạy và leo núi nhennn"
+      },
+      {
+        "title": "Cờ 3 · Phiêu lưu",
+        "text": "Chúc hộ chiếu kín dấu mộc, đi đâu cũng trời trong, chụp tấm nào cũng đẹp mà khỏi cần app chỉnh. Xinh ta không cần Xing Tu :3"
+      },
+      {
+        "title": "Cờ 4 · Đồng đội",
+        "text": "Chúc Héo sớm kím được mụt nửa đồng hành cùng để cùng phiêu lưu, chạy bib, leo núi,... nhoooo"
+      }
+    ],
+    "summit": "Đỉnh 24! Đứng trên này nhìn xuống, deadline nào cũng nhỏ xíu.",
+    "realPhoto": {
+      "photo": "assets/photos/dinh-nui.webp",
+      "caption": "Bản gốc ngoài đời: sương che hết view, nhưng không che nổi độ ngầu lòi của Héooo",
+      "alt": "Hiếu cầm cờ đỏ sao vàng trên đỉnh núi trong sương mù"
+    }
+  },
+  "scene5": {
+    "title": "Cuộn phim",
+    "hint": "Bấm nút chụp để rửa ảnh",
+    "say": "Đứng yên! Để Héo chụp lại hết.",
+    "done": "Đủ một cuộn phim rồi. Vuốt ngang để xem lại nha.",
+    "photos": [
+      {
+        "photo": "assets/photos/anh-01.webp",
+        "caption": "Gió thổi tóc bay tứ tung, nhưng không thổi bay được độ ngầu của chụy",
+        "alt": "Hiếu đeo kính râm, tóc bay trong gió"
+      },
+      {
+        "photo": "assets/photos/anh-02.webp",
+        "caption": "Ninja Lead xuất kích, khẩu trang kín mít mà vẫn phải selfie",
+        "alt": "Selfie trên xe máy, đội nón bảo hiểm và đeo khẩu trang"
+      },
+      {
+        "photo": "assets/photos/anh-03.webp",
+        "caption": "Ngồi cà phê thôi mà tưởng đang chụp bìa album",
+        "alt": "Hiếu chống cằm trong quán cà phê trang trí Noel"
+      },
+      {
+        "photo": "assets/photos/anh-04.webp",
+        "caption": "Noel chưa tới mà đã sì lây",
+        "alt": "Hiếu selfie cạnh cây thông Noel"
+      },
+      {
+        "photo": "assets/photos/anh-05.webp",
+        "caption": "Chụp một tấm, chọn ảnh ba tiếng, đăng thì để mai",
+        "alt": "Nhóm bạn chụp ảnh chung bằng điện thoại"
+      },
+      {
+        "photo": "assets/photos/anh-06.webp",
+        "caption": "Bốn khung photobooth, không khung nào nghiêm túc",
+        "alt": "Dải ảnh photobooth bốn khung"
+      },
+      {
+        "photo": "assets/photos/anh-07.webp",
+        "caption": "Ngồi xổm chờ crush... à nhầm, chờ grab",
+        "alt": "Hiếu ngồi xổm cạnh bức tường xanh"
+      },
+      {
+        "photo": "assets/photos/anh-08.webp",
+        "caption": "Tụ họp vì đồ ăn, ở lại vì... còn đồ ăn",
+        "alt": "Nhóm bạn ngồi ăn quanh bàn"
+      },
+      {
+        "photo": "assets/photos/anh-09.webp",
+        "caption": "Fashion week bãi giữ xe: nón bảo hiểm, khẩu trang, dép tổ ong",
+        "alt": "Hiếu đứng trong bãi giữ xe, đội nón bảo hiểm"
+      },
+      {
+        "photo": "assets/photos/anh-10.webp",
+        "caption": "Hai ninja rùa tạm dừng giữa đường để tự sướng",
+        "alt": "Hai người đội nón bảo hiểm selfie"
+      },
+      {
+        "photo": "assets/photos/anh-11.webp",
+        "caption": "Giơ chữ V một cái, cả thành phố tự động làm nền",
+        "alt": "Hiếu giơ chữ V trên đồi nhìn xuống thành phố"
+      },
+      {
+        "photo": "assets/photos/anh-12.webp",
+        "caption": "Đố tìm ra Hiếu trong ảnh: mất 5 giây, cười 5 phút",
+        "alt": "Hiếu nhỏ xíu đứng trước tháp đồng hồ dưới trời xanh"
+      },
+      {
+        "photo": "assets/photos/anh-13.webp",
+        "caption": "Matcha đá: nhiên liệu chính thức cho mọi cuộc phiêu lưu",
+        "alt": "Hiếu uống matcha đá trước quán cà phê"
+      },
+      {
+        "photo": "assets/photos/anh-14.webp",
+        "caption": "Chạy xong marathon về vẫn chu môi selfie, sức đâu ra vậy chàii",
+        "alt": "Hiếu đeo kính, chu môi selfie với số áo chạy"
+      },
+      {
+        "photo": "assets/photos/anh-15.webp",
+        "caption": "Biển xanh, trời xanh, mặt thì đang tính chuyện đi ăn",
+        "alt": "Hiếu selfie trên bậc gỗ cạnh biển"
+      },
+      {
+        "photo": "assets/photos/anh-16.webp",
+        "caption": "Nắng cũng không chói bằng cổ",
+        "alt": "Hiếu chu môi selfie dưới nắng"
+      },
+      {
+        "photo": "assets/photos/anh-17.webp",
+        "caption": "Dang tay ôm cả dãy núi, quên luôn đường xuống",
+        "alt": "Hiếu dang hai tay trước dãy núi xanh"
+      },
+      {
+        "photo": "assets/photos/anh-18.webp",
+        "caption": "Bắn tim cho núi",
+        "alt": "Hiếu giơ tay hình trái tim trước núi"
+      },
+      {
+        "photo": "assets/photos/anh-112.webp",
+        "caption": "Làm khùng làm điên cùng Phú Bùiii",
+        "alt": "Hiếu chụp photobooth cùng Phú"
+      },
+      {
+        "photo": "assets/photos/anh-111.webp",
+        "caption": "Bị chụp lén nhưng vẫn slayy",
+        "alt": "Hiếu bị chụp lén ở photobooth"
+      }
+    ]
+  },
+  "scene6": {
+    "title": "Gửi Kim Hiếu",
+    "lines": [
+      "Chúc mừng sinh nhật tuổi 24 nha Héo!",
+      "Tuổi mới chúc Héo khỏe để leo hết những ngọn núi còn trong danh sách, chạy hết những giải đang để dành, và chụp được thật nhiều khoảnh khắc mà sau này nhìn lại vẫn cười.",
+      "Chúc bạn Héo sớm hoàn thành khóa học, đạt kết quả xịn xò để còn dìa Việt Nam làm khùng làm điên dí Phú Bùi, đi ăn bánh tráng trộn và 1 đốnggg danh sách đồ ăn chưa đi được nhen!!!",
+      "Được thì bay dìa ăn sinh nhật bụ đụi thử cho biết nhen :))))) hẹ hẹ"
+    ],
+    "signature": "Cậu bạn cung Nhân mã đánh êu,",
+    "signer": "Phú Bùi"
+  },
+  "scene7": {
+    "hieuSay": "Ủa aii đâyyy!!!",
+    "phuSay": "Phú Bùi nè chứ aiii, nay cũng sinh nhật Phú Bùi mừ ^^",
+    "phuSay2": "Nên trang cuối này là của hai đứa. Cùng thổi nến nha!",
+    "blowHint": "Chạm vào bánh để cùng thổi nến",
+    "title": "HAPPY OUR BIRTHDAY",
+    "sub": "Kim Hiếu & Phú · 01.12.2002 → 01.12.2026",
+    "wish": "24 tuổi rồi nhen!",
+    "save": "Lưu ảnh kỷ niệm",
+    "replay": "Xem lại từ đầu",
+    "saveNote": "Nếu không tải được, nhấn giữ vào ảnh để lưu."
+  },
+  "scene8": {
+    "title": "After credit",
+    "intro": "Ơ, vẫn còn ngồi đây hả? Vậy coi luôn hậu trường nè.",
+    "musicTitle": "Nhạc trong thiệp",
+    "tracks": [
+      {
+        "song": "bgm",
+        "name": "Rainbow",
+        "artist": "Aetheric",
+        "source": "freetouse.com",
+        "role": "Nhạc nền cả thiệp"
+      },
+      {
+        "song": "party",
+        "name": "Happy Birthday to You",
+        "artist": "mojihaza",
+        "source": "Pixabay",
+        "role": "Nhạc lúc thổi nến"
+      }
+    ],
+    "play": "Nghe",
+    "playing": "Đang phát",
+    "why": "Vì sao chọn Rainbow? Để sáng mai, hay bất cứ lúc nào Hiếu mở thiệp này, Héo cũng tràn đầy năng lượng như cầu vồng!!!",
+    "photosTitle": "Ảnh thật",
+    "photosNote": "Chạm vào ảnh để xem lớn và tải về.",
+    "chibiTitle": "Chibi tải về",
+    "chibiNote": "Chạm vào chibi nào là tải chibi đó, làm avatar hay sticker tùy Héo.",
+    "download": "Tải về",
+    "credits": [
+      {
+        "role": "Nhân vật chính",
+        "name": "Huỳnh Như Kim Hiếu"
+      },
+      {
+        "role": "Ý tưởng, lời chúc, kiêm thợ chụp ảnh không công",
+        "name": "Phú Bùi"
+      },
+      {
+        "role": "Ảnh thật",
+        "name": "Lụm từ TikTok của chính chủ"
+      },
+      {
+        "role": "Nhạc nền",
+        "name": "Aetheric - Rainbow (freetouse.com)"
+      },
+      {
+        "role": "Nhạc thổi nến",
+        "name": "mojihaza - Happy Birthday to You (Pixabay)"
+      }
+    ],
+    "end": "Hẹn gặp lại ở nơi Phú Bùi đóng quân nhó!",
+    "replay": "Xem lại từ đầu",
+    "armyAlt": "Chibi Phú Bùi mặc quân phục bộ đội, cười tươi"
+  }
+}

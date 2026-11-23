@@ -1,0 +1,95 @@
+{
+ "_ghiChu": "Tạo bởi tools/build_hieu.py từ bảng 08b, 08c. Động tác chưa có ở đây thì Phú dùng bộ mảnh xoay khớp.",
+ "poses": {
+  "idle": {
+   "file": "idle.webp",
+   "h": 1.0,
+   "ax": 0.501,
+   "ar": 0.4796,
+   "head": [
+    0.497,
+    0.009
+   ]
+  },
+  "wave": {
+   "file": "wave.webp",
+   "h": 1.0,
+   "ax": 0.523,
+   "ar": 0.527,
+   "head": [
+    0.521,
+    0.009
+   ]
+  },
+  "highfive": {
+   "file": "highfive.webp",
+   "h": 1.0013,
+   "ax": 0.566,
+   "ar": 0.5697,
+   "head": [
+    0.565,
+    0.008
+   ]
+  },
+  "blow": {
+   "file": "blow.webp",
+   "h": 0.9789,
+   "ax": 0.53,
+   "ar": 0.4697,
+   "head": [
+    0.527,
+    0.005
+   ]
+  },
+  "laugh": {
+   "file": "laugh.webp",
+   "h": 0.9855,
+   "ax": 0.523,
+   "ar": 0.4693,
+   "head": [
+    0.52,
+    0.008
+   ]
+  },
+  "jump": {
+   "file": "jump.webp",
+   "h": 0.9373,
+   "ax": 0.549,
+   "ar": 0.5238,
+   "head": [
+    0.547,
+    0.008
+   ]
+  },
+  "cheer": {
+   "file": "cheer.webp",
+   "h": 1.0012,
+   "ax": 0.504,
+   "ar": 0.5614,
+   "head": [
+    0.502,
+    0.008
+   ]
+  },
+  "walkA": {
+   "file": "walkA.webp",
+   "h": 0.9964,
+   "ax": 0.51,
+   "ar": 0.4685,
+   "head": [
+    0.508,
+    0.005
+   ]
+  },
+  "walkB": {
+   "file": "walkB.webp",
+   "h": 0.9988,
+   "ax": 0.505,
+   "ar": 0.4553,
+   "head": [
+    0.503,
+    0.006
+   ]
+  }
+ }
+}

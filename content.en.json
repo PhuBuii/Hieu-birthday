@@ -1,0 +1,308 @@
+{
+  "_ghiChu": "Bản tiếng Anh: chỉ chứa chữ, cùng cấu trúc với content.json và được ghép đè lên khi chọn EN. Mảng ghép theo vị trí. null (hoặc bỏ trống khóa) = dùng lại chữ tiếng Việt. Đường dẫn ảnh, số km, ngày giờ... lấy từ content.json.",
+  "meta": {
+    "description": "A little card for a 24th birthday."
+  },
+  "ui": {
+    "lang": "VI",
+    "langLabel": "Chuyển sang tiếng Việt",
+    "next": "Next",
+    "toProfile": "Open the file",
+    "toRace": "Let's run",
+    "toClimb": "Go climb",
+    "toPhotos": "Develop photos",
+    "toLetter": "Open the letter",
+    "toLast": "Last page",
+    "soundOn": "Turn sound on",
+    "soundOff": "Turn sound off",
+    "star": "Star",
+    "photo": "Photo",
+    "close": "Close",
+    "download": "Download",
+    "share": "Share",
+    "keepsakeAlt": "HAPPY OUR BIRTHDAY keepsake photo",
+    "keepsakeFail": "Couldn't create the photo, please try again.",
+    "aria": {
+      "loading": "Loading",
+      "progress": "Loading progress",
+      "giftScene": "Gift box",
+      "gift": "Gift box, tap 3 times to open",
+      "tapRun": "Tap to speed up",
+      "climb": "Keep climbing",
+      "shutter": "Take a photo",
+      "letter": "A letter from Phú",
+      "cake": "Birthday cake, tap to blow out the candles",
+      "hieu": "Chibi Kim Hiếu",
+      "phu": "Chibi Phú",
+      "hud": "Card controls"
+    },
+    "toCredits": "After credits"
+  },
+  "scene0": {
+    "loading": "Warming up for 24 km…"
+  },
+  "scene1": {
+    "lockedTitle": "Not yet!",
+    "lockedSay": "So curious! The gift only opens at exactly 00:00 on 01/12.",
+    "units": [
+      "days",
+      "hrs",
+      "min",
+      "sec"
+    ],
+    "giftHint": "Tap 3 times to open the gift",
+    "lines": [
+      "Huh? Who's calling Héo?",
+      "Today's Héo's day? Oh, I know!"
+    ],
+    "phuPeek": "Psst… it's Phú Bùi. Someone turns 24 today."
+  },
+  "scene2": {
+    "title": "Sagittarius File",
+    "hint": "Tap the glowing stars in order",
+    "say": "Connect the stars for Héo. What sign is it?",
+    "done": "Sagittarius! The sign of people who can't sit still.",
+    "reveal": "See? These 8 “teapot” stars are actually the archer's bow and arrow, aimed straight at Antares!",
+    "sky": {
+      "alnasl": "Alnasl\narrowhead",
+      "kausAustralis": "Kaus Australis · brightest",
+      "nunki": "Nunki",
+      "antares": "toward\nAntares →",
+      "milkyWay": "MILKY WAY"
+    },
+    "card": {
+      "label": "Top secret file · Level 24",
+      "sign": "Sagittarius",
+      "traits": "Free-spirited · Adventurous · Optimistic · Brutally honest",
+      "stats": [
+        {
+          "label": "Stubbornness on a mountain"
+        },
+        {
+          "label": "Finish-line speed"
+        },
+        {
+          "label": "Moment-catching skills"
+        },
+        {
+          "label": "Love for bánh tráng !!!!"
+        },
+        {
+          "label": "Ability to sit still"
+        }
+      ],
+      "note": "Warning: invite her out and she's already at the door. No reason needed."
+    }
+  },
+  "scene3": {
+    "title": "The 24-Year Run",
+    "hint": "Keep tapping to speed up",
+    "say": "Run with Héo! Tap to speed up!",
+    "milestones": [
+      {
+        "label": "Start 01.12.2002",
+        "text": "May everything go smoothly wherever you go, Héo. When it gets too hard, “cry and keep going”, but never give up!"
+      },
+      {
+        "label": "Water station",
+        "text": "A refill for Héo, so you always have energy: overflowing, endless, ridiculous amounts of it for the road ahead!"
+      },
+      {
+        "label": "Halfway",
+        "text": "May Héo's salary shoot up like a heart rate on an uphill run."
+      },
+      {
+        "label": "The Wall",
+        "text": "No obstacle can stop us Sagittarius folks. Anything blocking your way at 24 gets charged straight through. 24 and strong enough to snap a buffalo's horn!"
+      },
+      {
+        "label": "Finish 01.12.2026",
+        "text": "May Héooo get a gorgeous finish-line photo every single year, totally slayyyyyy~"
+      }
+    ],
+    "finish": "Finished at 24! May Héoooo get a gorgeous finish-line photo every single year, totally slayyyyyy~",
+    "realPhoto": {
+      "caption": "The real deal: Gold Coast Marathon, still posing at the finish",
+      "alt": "Hiếu finishing the Gold Coast Marathon with a peace sign"
+    }
+  },
+  "scene4": {
+    "title": "Conquering Peak 24",
+    "hint": "Swipe up or tap to keep climbing",
+    "say": "Climbing? Héo isn't scared of anyone!",
+    "flags": [
+      {
+        "title": "Flag 1 · Health",
+        "text": "May Héo have endless energy to conquer one mountain after another~"
+      },
+      {
+        "title": "Flag 2 · Money",
+        "text": "May Héo have plenty of money for race bibs and climbing trips!"
+      },
+      {
+        "title": "Flag 3 · Adventure",
+        "text": "May your passport fill up with stamps, every sky be clear, and every photo look great with zero editing. Pretty without the beauty app :3"
+      },
+      {
+        "title": "Flag 4 · Teammate",
+        "text": "May Héo soon find a better half to adventure with: racing bibs, climbing mountains, and more!"
+      }
+    ],
+    "summit": "Peak 24! From up here, every deadline looks tiny.",
+    "realPhoto": {
+      "caption": "The real deal: the fog hid the view, but not Héo's swag",
+      "alt": "Hiếu holding the Vietnamese flag on a misty summit"
+    }
+  },
+  "scene5": {
+    "title": "Film Roll",
+    "hint": "Press the shutter to develop photos",
+    "say": "Freeze! Let Héo capture everything.",
+    "done": "A full roll! Swipe to look back.",
+    "photos": [
+      {
+        "caption": "The wind can mess up the hair, but not the attitude",
+        "alt": "Hiếu in sunglasses, hair blowing in the wind"
+      },
+      {
+        "caption": "Ninja Lead mode: fully masked, still has to take a selfie",
+        "alt": "Selfie on a motorbike with a helmet and face mask"
+      },
+      {
+        "caption": "Just having coffee, looks like an album cover shoot",
+        "alt": "Hiếu resting her chin on her hand in a Christmas-decorated café"
+      },
+      {
+        "caption": "Christmas isn't here yet, but she's already slaying",
+        "alt": "Hiếu taking a selfie next to a Christmas tree"
+      },
+      {
+        "caption": "One shot taken, three hours choosing, posting it tomorrow",
+        "alt": "Friends taking a group photo with a phone"
+      },
+      {
+        "caption": "Four photobooth frames, zero serious faces",
+        "alt": "A four-frame photobooth strip"
+      },
+      {
+        "caption": "Squatting, waiting for my crush… oops, I mean my Grab",
+        "alt": "Hiếu squatting next to a green wall"
+      },
+      {
+        "caption": "Came for the food, stayed because… there was more food",
+        "alt": "Friends eating around a table"
+      },
+      {
+        "caption": "Parking lot fashion week: helmet, face mask, flip-flops",
+        "alt": "Hiếu standing in a parking lot, wearing a helmet"
+      },
+      {
+        "caption": "Two helmet ninjas pausing mid-road for a selfie",
+        "alt": "Two people in helmets taking a selfie"
+      },
+      {
+        "caption": "One peace sign and the whole city becomes your backdrop",
+        "alt": "Hiếu making a peace sign on a hill above the city"
+      },
+      {
+        "caption": "Find Hiếu in this photo: 5 seconds to find, 5 minutes to laugh",
+        "alt": "Tiny Hiếu in front of a clock tower under a blue sky"
+      },
+      {
+        "caption": "Iced matcha: official fuel for every adventure",
+        "alt": "Hiếu drinking iced matcha in front of a café"
+      },
+      {
+        "caption": "Just ran a marathon, still pouting for a selfie. Where does the energy come from?",
+        "alt": "Hiếu in glasses pouting for a selfie with her race bib"
+      },
+      {
+        "caption": "Blue sea, blue sky, brain already planning lunch",
+        "alt": "Hiếu taking a selfie on wooden steps by the sea"
+      },
+      {
+        "caption": "The sun isn't even as dazzling as her",
+        "alt": "Hiếu pouting for a selfie in the sun"
+      },
+      {
+        "caption": "Arms wide to hug the whole mountain range, forgot the way down",
+        "alt": "Hiếu spreading her arms in front of green mountains"
+      },
+      {
+        "caption": "Sending hearts to the mountain",
+        "alt": "Hiếu making a heart with her hands in front of a mountain"
+      },
+      {
+        "caption": "Going silly with Phú Bùiii",
+        "alt": "Hiếu in a photobooth with Phú"
+      },
+      {
+        "caption": "Caught on camera, still slayy",
+        "alt": "Candid photobooth shot of Hiếu"
+      }
+    ]
+  },
+  "scene6": {
+    "title": "To Kim Hiếu",
+    "lines": [
+      "Happy 24th birthday, Héo!",
+      "This year, may you stay strong enough to climb every mountain still on your list, run every race you've been saving, and catch so many moments that still make you smile years from now.",
+      "May you finish your course soon with awesome results, so you can come back to Vietnam and go wild with Phú Bùi: bánh tráng trộn and a whole hugeee list of food spots we haven't hit yet!!!",
+      "And if you can, fly home and celebrate our birthday together for once :))))) hehe"
+    ],
+    "signature": "Your fellow Sagittarius buddy,"
+  },
+  "scene7": {
+    "hieuSay": "Wait, who's thiiis!!!",
+    "phuSay": "It's Phú Bùi, who else! Today's Phú Bùi's birthday too ^^",
+    "phuSay2": "So this last page belongs to both of us. Let's blow out the candles together!",
+    "blowHint": "Tap the cake to blow out the candles together",
+    "sub": "Kim Hiếu & Phú · 01.12.2002 → 01.12.2026",
+    "wish": "Officially 24!",
+    "save": "Save keepsake photo",
+    "replay": "Watch again",
+    "saveNote": "If it won't download, press and hold the image to save it."
+  },
+  "scene8": {
+    "title": "After credits",
+    "intro": "Oh, you're still here? Then here's the behind-the-scenes.",
+    "musicTitle": "Music in this card",
+    "tracks": [
+      {
+        "role": "Background music for the whole card"
+      },
+      {
+        "role": "Candle-blowing song"
+      }
+    ],
+    "play": "Play",
+    "playing": "Playing",
+    "why": "Why Rainbow? So that tomorrow morning, or whenever Hiếu opens this card, Héo feels as full of energy as a rainbow!!!",
+    "photosTitle": "Real photos",
+    "photosNote": "Tap a photo to see it big and download it.",
+    "chibiTitle": "Chibi downloads",
+    "chibiNote": "Tap any chibi to download it. Avatar, sticker, Héo's call.",
+    "download": "Download",
+    "credits": [
+      {
+        "role": "Starring"
+      },
+      {
+        "role": "Idea, wishes, and unpaid photographer"
+      },
+      {
+        "role": "Real photos",
+        "name": "Borrowed from her own TikTok"
+      },
+      {
+        "role": "Background music"
+      },
+      {
+        "role": "Candle-blowing song"
+      }
+    ],
+    "end": "See you where Phú Bùi is stationed!",
+    "replay": "Watch again",
+    "armyAlt": "Chibi Phú Bùi in an army uniform, smiling"
+  }
+}

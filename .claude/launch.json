@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "thiep-kim-hieu", "runtimeExecutable": "node", "runtimeArgs": ["tools/serve.mjs"], "port": 5179 }
+  ]
+}
