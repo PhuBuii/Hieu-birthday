@@ -1,12 +1,8 @@
 # Cần bổ sung
 
-Tự tạo bằng `npm run check` từ `content.json`. Còn **0 chỗ trống bắt buộc**, 1 mục tùy chọn.
+Tự tạo bằng `npm run check` từ `content.json`. Còn **0 chỗ trống bắt buộc**, 0 mục tùy chọn.
 
 Trong thiệp, các chỗ này hiện bằng **khung nét đứt vàng** kèm nhãn "Chỗ trống" (khi `"draftMode": true`). Nút "Bản nháp · N chỗ trống" ở góc màn hình mở cùng danh sách này.
-
-## Phát hành
-
-- [ ] Địa chỉ trang thật (dùng cho ảnh xem trước khi dán link) *(tùy chọn)* · `meta.siteUrl`
 
 ## Ngoài content.json
 
