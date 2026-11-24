@@ -48,9 +48,19 @@ async function minifyHtml(html) {
   return html.replace(/\u0000(\d+)\u0000/g, (m, i) => out[+i]);
 }
 
-let index = fs.readFileSync(R('index.html'), 'utf8')
-  .replace(/\s*<link rel="stylesheet" href="src\/fonts\.css">\s*<link rel="stylesheet" href="src\/style\.css">\s*<link rel="stylesheet" href="src\/todo\.css">/, '\n<link rel="stylesheet" href="src/app.css">')
-  .replace('<script type="module" src="src/main.js"></script>', '<script type="module" src="src/app.js"></script>');
+// Chấp nhận mọi kiểu viết thẻ (có/không " />", nháy đơn/kép, thứ tự thuộc tính) vì Prettier có thể định dạng lại index.html
+const CSS_FILES = ['fonts', 'style', 'todo'];
+let index = fs.readFileSync(R('index.html'), 'utf8');
+let firstCss = true;
+for (const name of CSS_FILES) {
+  const re = new RegExp(`[ \\t]*<link\\b[^>]*href=["']\\.?/?src/${name}\\.css["'][^>]*>[ \\t]*\\r?\\n?`, 'i');
+  if (!re.test(index)) throw new Error(`build: không thấy <link> tới src/${name}.css trong index.html`);
+  index = index.replace(re, firstCss ? '<link rel="stylesheet" href="src/app.css">\n' : '');
+  firstCss = false;
+}
+const jsRe = /<script\b[^>]*src=["']\.?\/?src\/main\.js["'][^>]*>\s*<\/script>/i;
+if (!jsRe.test(index)) throw new Error('build: không thấy <script src="src/main.js"> trong index.html');
+index = index.replace(jsRe, '<script type="module" src="src/app.js"></script>');
 if (!index.includes('src/app.css') || !index.includes('src/app.js')) throw new Error('build: không tìm thấy thẻ CSS/JS trong index.html để thay bằng bản gộp');
 fs.writeFileSync(D('index.html'), await minifyHtml(index));
 
