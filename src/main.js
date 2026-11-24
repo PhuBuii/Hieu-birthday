@@ -1677,10 +1677,19 @@ function arrive() {
     setFlag(fl, FLAG_ICON[c.stop] || "flag-health");
     if (flags[c.stop + 1]) setFlag(flags[c.stop + 1], "flag-glow");
     if (!reduced) {
-      gsap.fromTo(fl, { scale: 0.55 }, { scale: 1, duration: 0.6, ease: "back.out(3)" });
+      gsap.fromTo(
+        fl,
+        { scale: 0.55 },
+        { scale: 1, duration: 0.6, ease: "back.out(3)" },
+      );
       const a = app.getBoundingClientRect(),
         r = fl.getBoundingClientRect();
-      sparkles(r.left - a.left + r.width * 0.62, r.top - a.top + r.height * 0.25, 6, 46);
+      sparkles(
+        r.left - a.left + r.width * 0.62,
+        r.top - a.top + r.height * 0.25,
+        6,
+        46,
+      );
     }
     const card = $(".wish-card");
     card.children[0].textContent = f.title;
@@ -1977,7 +1986,14 @@ function finishLetter() {
   $(".letter-sign").classList.add("on");
   // thư dài hơn khung: cuộn tới chữ ký (người xem vẫn kéo lên đọc lại được)
   const card = $(".letter-card");
-  later(() => card.scrollTo({ top: card.scrollHeight, behavior: reduced ? "auto" : "smooth" }), 150);
+  later(
+    () =>
+      card.scrollTo({
+        top: card.scrollHeight,
+        behavior: reduced ? "auto" : "smooth",
+      }),
+    150,
+  );
   // đọc xong: rưng rưng, tim bay lên, rồi cười tươi
   hieu.pose("touched").feel("touched");
   later(() => {

@@ -9,5 +9,8 @@
     "preview": "node tools/serve.mjs dist",
     "check": "node tools/check-content.mjs"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "esbuild": "^0.25.5"
+  }
 }

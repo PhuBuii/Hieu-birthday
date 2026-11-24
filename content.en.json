@@ -39,22 +39,14 @@
     "toCredits": "After credits"
   },
   "scene0": {
-    "loading": "Warming up for 24 km…"
+    "loading": "Warming up…"
   },
   "scene1": {
     "lockedTitle": "Not yet!",
     "lockedSay": "So curious! The gift only opens at exactly 00:00 on 01/12.",
-    "units": [
-      "days",
-      "hrs",
-      "min",
-      "sec"
-    ],
+    "units": ["days", "hrs", "min", "sec"],
     "giftHint": "Tap 3 times to open the gift",
-    "lines": [
-      "Huh? Who's calling Héo?",
-      "Today's Héo's day? Oh, I know!"
-    ],
+    "lines": ["Huh? Who's calling Héo?", "Today's Héo's day? Oh, I know!"],
     "phuPeek": "Psst… it's Phú Bùi. Someone turns 24 today."
   },
   "scene2": {
