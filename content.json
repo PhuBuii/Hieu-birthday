@@ -4,7 +4,7 @@
   "meta": {
     "title": "Happy 24th, Kim Hiếu!",
     "description": "Một tấm thiệp nho nhỏ cho sinh nhật tuổi 24.",
-    "siteUrl": ""
+    "siteUrl": "https://hieu-birthday.vercel.app/"
   },
   "people": {
     "hieu": {
@@ -76,17 +76,9 @@
   "scene1": {
     "lockedTitle": "Chưa tới giờ nha!",
     "lockedSay": "Tò mò dữ vậy? Đợi đúng 00:00 ngày 01/12 mới được mở quà.",
-    "units": [
-      "ngày",
-      "giờ",
-      "phút",
-      "giây"
-    ],
+    "units": ["ngày", "giờ", "phút", "giây"],
     "giftHint": "Chạm 3 lần để mở quà",
-    "lines": [
-      "Ủa ai gọi Héo đó?",
-      "Hôm nay là ngày của Héo hả? Biết rồi nha!"
-    ],
+    "lines": ["Ủa ai gọi Héo đó?", "Hôm nay là ngày của Héo hả? Biết rồi nha!"],
     "phuPeek": "Psst… Phú Bùii đây. Hôm nay có người tròn 24 tuổi đó."
   },
   "scene2": {
