@@ -81,7 +81,10 @@ function cover(x, img, w, h) {
   x.drawImage(img, (w - dw) / 2, h - dh, dw, dh);
 }
 
-export async function makeKeepsake(C, hieu, phu) {
+export async function makeKeepsake(C, hieu, phu, { story = false } = {}) {
+  // story: khổ 9:16 (1080 × 1920) để đăng tin; chữ dời xuống, nhân vật vẫn đứng sát đáy
+  // story chừa khoảng trên/dưới cho thanh tên và ô trả lời của Instagram/Facebook che
+  const W2 = W, H2 = story ? 1920 : H, top = story ? 330 : 0, bottom = story ? 190 : 0;
   await Promise.all([
     document.fonts.load('900 80px "Playfair Display"'),
     document.fonts.load('700 30px "Be Vietnam Pro"'),
@@ -93,26 +96,26 @@ export async function makeKeepsake(C, hieu, phu) {
   ]);
 
   const cv = document.createElement('canvas');
-  cv.width = W; cv.height = H;
+  cv.width = W2; cv.height = H2;
   const x = cv.getContext('2d');
 
   // nền: phòng tiệc (hoặc chuyển màu tím chiều sang cam nếu thiếu ảnh), phủ tối phía trên cho rõ chữ
-  if (bg) cover(x, bg, W, H);
+  if (bg) cover(x, bg, W2, H2);
   else {
-    const g = x.createLinearGradient(0, 0, 0, H);
+    const g = x.createLinearGradient(0, 0, 0, H2);
     g.addColorStop(0, '#2E2142'); g.addColorStop(0.55, '#6A3B57'); g.addColorStop(1, '#C8653F');
     x.fillStyle = g;
-    x.fillRect(0, 0, W, H);
+    x.fillRect(0, 0, W2, H2);
   }
-  const sh = x.createLinearGradient(0, 0, 0, H);
+  const sh = x.createLinearGradient(0, 0, 0, H2);
   sh.addColorStop(0, 'rgba(36,22,34,.82)'); sh.addColorStop(0.42, 'rgba(36,22,34,.5)'); sh.addColorStop(0.7, 'rgba(36,22,34,0)');
   x.fillStyle = sh;
-  x.fillRect(0, 0, W, H);
+  x.fillRect(0, 0, W2, H2);
   // pháo giấy
   const colors = ['#F26A2E', '#F5C242', '#6FC2A6', '#AFC3CE', '#F6B3B3', '#FFF6EA'];
   for (let i = 0; i < 80; i++) {
     x.save();
-    x.translate(Math.random() * W, 60 + Math.random() * (H - 260));
+    x.translate(Math.random() * W2, 60 + Math.random() * (H2 - 260));
     x.rotate(Math.random() * Math.PI);
     x.fillStyle = colors[i % colors.length];
     x.globalAlpha = 0.85;
@@ -124,17 +127,17 @@ export async function makeKeepsake(C, hieu, phu) {
   x.textAlign = 'center';
   x.fillStyle = '#3A2A20';
   x.font = '900 128px "Playfair Display", Georgia, serif';
-  x.fillText('HAPPY OUR', W / 2 + 6, 222);
-  x.fillText('BIRTHDAY', W / 2 + 6, 352);
+  x.fillText('HAPPY OUR', W2 / 2 + 6, 222 + top);
+  x.fillText('BIRTHDAY', W2 / 2 + 6, 352 + top);
   x.fillStyle = '#FFE3A8';
-  x.fillText('HAPPY OUR', W / 2, 216);
-  x.fillText('BIRTHDAY', W / 2, 346);
+  x.fillText('HAPPY OUR', W2 / 2, 216 + top);
+  x.fillText('BIRTHDAY', W2 / 2, 346 + top);
   x.font = '700 34px "Be Vietnam Pro", system-ui, sans-serif';
   x.fillStyle = '#FFF6EA';
-  x.fillText(C.scene7.sub, W / 2, 422);
+  x.fillText(C.scene7.sub, W2 / 2, 422 + top);
 
   // Hiếu (trái) đội mũ cam
-  const base = H - 130;
+  const base = H2 - 130 - bottom;
   const stand = 640;
   const hh = stand * hi.ph, hw = hh * hi.img.width / hi.img.height;
   const hx = 250 - hw * hi.ax, hy = base - hh;
@@ -149,14 +152,14 @@ export async function makeKeepsake(C, hieu, phu) {
   else hat(x, hatM, px + pw * 0.6, py + ph * 0.1, 125, 0.32);
   // bánh ở giữa
   const cw = 360, ch = cw * cImg.height / cImg.width;
-  x.drawImage(cImg, W / 2 - cw / 2, base - ch + 40, cw, ch);
+  x.drawImage(cImg, W2 / 2 - cw / 2, base - ch + 40, cw, ch);
 
   // lời chúc
   x.font = '400 40px "Pacifico", cursive';
   x.fillStyle = '#FFF6EA';
   x.shadowColor = 'rgba(0,0,0,.5)';
   x.shadowBlur = 10;
-  x.fillText(C.scene7.wish, W / 2, H - 50);
+  x.fillText(C.scene7.wish, W2 / 2, H2 - 50 - bottom);
 
   return new Promise((res, rej) => cv.toBlob((b) => (b ? res(b) : rej(new Error('toBlob'))), 'image/png'));
 }

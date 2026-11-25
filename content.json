@@ -37,6 +37,9 @@
     "close": "Đóng",
     "download": "Tải ảnh",
     "share": "Chia sẻ",
+    "auto": "Tự xem",
+    "autoStop": "Dừng tự xem",
+    "story": "Bản story 9:16",
     "keepsakeAlt": "Ảnh kỷ niệm HAPPY OUR BIRTHDAY",
     "keepsakeFail": "Chưa tạo được ảnh, thử lại nha.",
     "aria": {
@@ -77,6 +80,7 @@
     "lockedTitle": "Chưa tới giờ nha!",
     "lockedSay": "Tò mò dữ vậy? Đợi đúng 00:00 ngày 01/12 mới được mở quà.",
     "units": ["ngày", "giờ", "phút", "giây"],
+    "giftTitle": "Héo ơi, có quà nè",
     "giftHint": "Chạm 3 lần để mở quà",
     "lines": ["Ủa ai gọi Héo đó?", "Hôm nay là ngày của Héo hả? Biết rồi nha!"],
     "phuPeek": "Psst… Phú Bùii đây. Hôm nay có người tròn 24 tuổi đó."
@@ -196,6 +200,7 @@
     "hint": "Bấm nút chụp để rửa ảnh",
     "say": "Đứng yên! Để Héo chụp lại hết.",
     "done": "Đủ một cuộn phim rồi. Vuốt ngang để xem lại nha.",
+    "developAll": "Rửa hết luôn",
     "photos": [
       {
         "photo": "assets/photos/anh-01.webp",
@@ -379,6 +384,15 @@
     ],
     "end": "Hẹn gặp lại ở nơi Phú Bùi đóng quân nhó!",
     "replay": "Xem lại từ đầu",
-    "armyAlt": "Chibi Phú Bùi mặc quân phục bộ đội, cười tươi"
+    "armyAlt": "Chibi Phú Bùi mặc quân phục bộ đội, cười tươi",
+    "replyTitle": "Gửi lời cho Phú",
+    "replyNote": "Viết gì cũng được, lời này chỉ gửi riêng cho Phú.",
+    "replyPlaceholder": "Phú ơi...",
+    "replySend": "Gửi cho Phú",
+    "replySending": "Đang gửi...",
+    "replySent": "Gửi rồi nè! Phú sẽ đọc sớm thôi.",
+    "replyFail": "Chưa gửi được, thử lại sau chút nha.",
+    "replayTitle": "Xem lại từng màn",
+    "replayNote": "Thích màn nào thì chạm để chơi lại màn đó."
   }
 }

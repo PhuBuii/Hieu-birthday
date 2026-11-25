@@ -74,6 +74,7 @@
             <div class="cd"><b data-cd="s">00</b><small></small></div>
           </div>
         </div>
+        <h2 class="scene-title gift-title" data-t="scene1.giftTitle"></h2>
         <div class="gift-wrap" hidden>
           <p class="hint gift-hint" data-t="scene1.giftHint"></p>
           <button
@@ -498,6 +499,12 @@
           </svg>
           <span class="shutter-count"></span>
         </button>
+        <button
+          class="btn btn-ghost develop-all"
+          type="button"
+          data-t="scene5.developAll"
+          hidden
+        ></button>
         <div class="flash" aria-hidden="true"></div>
       </section>
 
@@ -588,6 +595,39 @@
         <div class="cr-scroll">
           <h2 class="scene-title" data-t="scene8.title"></h2>
           <p class="cr-intro" data-t="scene8.intro"></p>
+          <section class="cr-block cr-reply">
+            <h3 data-t="scene8.replyTitle"></h3>
+            <p class="cr-note" data-t="scene8.replyNote"></p>
+            <form class="reply-form" novalidate>
+              <label class="sr-only" for="reply-text" data-t="scene8.replyTitle"></label>
+              <textarea
+                id="reply-text"
+                name="text"
+                rows="4"
+                maxlength="1000"
+                required
+                data-tp="scene8.replyPlaceholder"
+              ></textarea>
+              <!-- bẫy bot: người thật không thấy ô này -->
+              <input
+                class="hp"
+                type="text"
+                name="website"
+                tabindex="-1"
+                autocomplete="off"
+                aria-hidden="true"
+              />
+              <div class="reply-row">
+                <span class="reply-count" aria-hidden="true">0/1000</span>
+                <button
+                  class="btn btn-main reply-send"
+                  type="submit"
+                  data-t="scene8.replySend"
+                ></button>
+              </div>
+              <p class="reply-status" role="status" aria-live="polite"></p>
+            </form>
+          </section>
           <section class="cr-block">
             <h3 data-t="scene8.musicTitle"></h3>
             <div class="cr-tracks"></div>
@@ -602,6 +642,11 @@
             <h3 data-t="scene8.chibiTitle"></h3>
             <p class="cr-note" data-t="scene8.chibiNote"></p>
             <div class="cr-chibi"></div>
+          </section>
+          <section class="cr-block">
+            <h3 data-t="scene8.replayTitle"></h3>
+            <p class="cr-note" data-t="scene8.replayNote"></p>
+            <div class="cr-scenes"></div>
           </section>
           <dl class="cr-roll"></dl>
           <figure class="cr-army">
@@ -705,6 +750,21 @@
           </svg>
         </button>
         <button
+          class="icon-btn auto-btn"
+          type="button"
+          aria-pressed="false"
+          aria-label="Tự xem"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path class="play" d="M8 5.5v13l10.5-6.5z" fill="currentColor" />
+            <path
+              class="pause"
+              d="M7.5 5.5h3v13h-3zM13.5 5.5h3v13h-3z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+        <button
           class="icon-btn lang-btn"
           type="button"
           lang="en"
@@ -713,6 +773,7 @@
           EN
         </button>
         <ol class="dots" aria-hidden="true"></ol>
+        <span class="dots-n"></span>
         <button class="btn btn-next" type="button" hidden>
           Tiếp tục <span aria-hidden="true">›</span>
         </button>

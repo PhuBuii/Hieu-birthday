@@ -12,5 +12,11 @@
   "type": "module",
   "devDependencies": {
     "esbuild": "^0.25.5"
+  },
+  "dependencies": {
+    "@vercel/blob": "^2.9.0"
+  },
+  "overrides": {
+    "zod": "^4.6.6"
   }
 }

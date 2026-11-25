@@ -20,6 +20,9 @@
     "close": "Close",
     "download": "Download",
     "share": "Share",
+    "auto": "Autoplay",
+    "autoStop": "Stop autoplay",
+    "story": "Story 9:16",
     "keepsakeAlt": "HAPPY OUR BIRTHDAY keepsake photo",
     "keepsakeFail": "Couldn't create the photo, please try again.",
     "aria": {
@@ -45,6 +48,7 @@
     "lockedTitle": "Not yet!",
     "lockedSay": "So curious! The gift only opens at exactly 00:00 on 01/12.",
     "units": ["days", "hrs", "min", "sec"],
+    "giftTitle": "Héo, there's a gift for you",
     "giftHint": "Tap 3 times to open the gift",
     "lines": ["Huh? Who's calling Héo?", "Today's Héo's day? Oh, I know!"],
     "phuPeek": "Psst… it's Phú Bùi. Someone turns 24 today."
@@ -152,6 +156,7 @@
     "hint": "Press the shutter to develop photos",
     "say": "Freeze! Let Héo capture everything.",
     "done": "A full roll! Swipe to look back.",
+    "developAll": "Develop them all",
     "photos": [
       {
         "caption": "The wind can mess up the hair, but not the attitude",
@@ -300,6 +305,15 @@
     ],
     "end": "See you where Phú Bùi is stationed!",
     "replay": "Watch again",
-    "armyAlt": "Chibi Phú Bùi in an army uniform, smiling"
+    "armyAlt": "Chibi Phú Bùi in an army uniform, smiling",
+    "replyTitle": "Send Phú a note",
+    "replyNote": "Write anything. It goes to Phú only.",
+    "replyPlaceholder": "Hey Phú...",
+    "replySend": "Send to Phú",
+    "replySending": "Sending...",
+    "replySent": "Sent! Phú will read it soon.",
+    "replyFail": "Couldn't send it. Try again in a bit.",
+    "replayTitle": "Replay a scene",
+    "replayNote": "Tap any scene to play it again."
   }
 }

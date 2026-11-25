@@ -91,6 +91,15 @@ let busy = false;
 let audioCfg = { sfxVolume: 0.6 };
 let sceneCleanup = [];
 const state = {};
+/** Chế độ tự xem: thiệp tự chạm giúp và tự qua màn */
+const auto = { on: false, timer: 0, nextSeen: 0 };
+/** Rung nhẹ khi chạm (Android; iPhone không hỗ trợ thì bỏ qua) */
+const buzz = (pattern) => {
+  // trình duyệt chặn (và báo lỗi console) nếu gọi rung trước lần chạm thật đầu tiên
+  if (reduced || !navigator.vibrate) return;
+  if (navigator.userActivation && !navigator.userActivation.hasBeenActive) return;
+  navigator.vibrate(pattern);
+};
 
 const get = (path) =>
   path.split(".").reduce((o, k) => (o == null ? o : o[k]), C);
@@ -294,6 +303,10 @@ function fillTexts() {
     const v = get(el.dataset.taAlt);
     if (typeof v === "string") el.alt = v;
   });
+  $$("[data-tp]").forEach((el) => {
+    const v = get(el.dataset.tp);
+    if (typeof v === "string") el.placeholder = v;
+  });
   $$(".cd small").forEach((s, i) => {
     s.textContent = C.scene1.units[i];
   });
@@ -303,6 +316,7 @@ function fillTexts() {
   lb.setAttribute("aria-label", C.ui.langLabel);
   const sb = $(".sound-btn");
   sb.setAttribute("aria-label", isEnabled() ? C.ui.soundOff : C.ui.soundOn);
+  $(".auto-btn").setAttribute("aria-label", auto.on ? C.ui.autoStop : C.ui.auto);
   if (!todoMounted) mountTodoPanel(C, app);
   todoMounted = true;
 }
@@ -430,6 +444,7 @@ function goTo(n) {
   }
   current = n;
   $$(".dots li").forEach((d, i) => d.classList.toggle("on", i === n - 1));
+  $(".dots-n").textContent = `${n}/8`;
   enter[n]?.();
   to.setAttribute("tabindex", "-1");
   to.focus({ preventScroll: true });
@@ -492,6 +507,8 @@ function bindGlobal() {
   bind6();
   bind7();
   bind8();
+  bindAuto();
+  bindReply();
   addEventListener("resize", () => {
     if (current === 4) layoutClimb();
   });
@@ -940,6 +957,7 @@ function bind1() {
       li.classList.toggle("on", i < state.taps),
     );
     sfx.pop();
+    buzz(state.taps >= 3 ? [30, 40, 60] : 20);
     if (!reduced) {
       // nén xuống, bật lên, phồng to dần theo số lần chạm
       const k = 1 + state.taps * 0.05;
@@ -1267,6 +1285,7 @@ function bind2() {
     b.classList.add("done");
     b.disabled = true;
     sfx.ting();
+    buzz(12);
     if (i > 0) drawLine(i - 1, i);
     state.star++;
     const nb = $(`.star[data-i="${state.star}"]`);
@@ -1417,6 +1436,7 @@ function enter3() {
   gsap.set(fl, { clearProps: "all" });
   gsap.set(".race-bg", { clearProps: "transform" });
   $(".mile-pop").hidden = true;
+  $(".s3 .hint").style.visibility = "";
   hieu.pose("runfront").anim("run");
   say(C.scene3.say, 500);
   duck(1);
@@ -1479,6 +1499,10 @@ function milePop(m) {
   if ((isFill(m.text) || isFill(m.label)) && !draft) return;
   hideSay();
   box.hidden = false;
+  // màn hình thấp: thẻ đè lên dòng hướng dẫn thì ẩn hẳn dòng đó cho khỏi chồng chữ
+  const hint = $(".s3 .hint");
+  hint.style.visibility =
+    box.getBoundingClientRect().top < hint.getBoundingClientRect().bottom ? "hidden" : "";
   sfx.smallBell();
   if (!reduced)
     gsap.fromTo(
@@ -1489,6 +1513,7 @@ function milePop(m) {
   clearTimeout(milePop._h);
   milePop._h = setTimeout(() => {
     box.hidden = true;
+    hint.style.visibility = "";
   }, 4600);
 }
 function bind3() {
@@ -1543,6 +1568,7 @@ function finishRace() {
   $(".mile-pop").hidden = true;
   $(".watch-km").textContent = "24.0";
   sfx.bell();
+  buzz([40, 60, 40, 60, 120]);
   confetti(80, { x: 50, y: 62, spread: 1.2 });
   later(() => confetti(50, { rain: true }), 300);
   // đứt dây: giơ ngón cái
@@ -1741,11 +1767,13 @@ function bind4() {
 }
 
 // ---------------------------------------------------------------- màn 5: cuộn phim
+const DEVELOP_ALL_AFTER = 6; // sau bấy nhiêu tấm thì hiện nút "Rửa hết luôn"
 function enter5() {
   $(".prints").innerHTML = "";
   $(".prints").hidden = false;
   $(".film").hidden = true;
   $(".shutter").hidden = false;
+  $(".develop-all").hidden = true;
   state.shots = 0;
   updateShots();
   hieu.pose(hieu.has("camlaugh") ? "camlaugh" : "camera").feel("focus");
@@ -1768,6 +1796,7 @@ function bind5() {
     const i = state.shots++;
     updateShots();
     sfx.shutter();
+    buzz(25);
     // đưa máy lên mắt bấm, rồi hạ máy cười
     hieu.pose("camera").feel("focus");
     gsap.fromTo(
@@ -1827,10 +1856,25 @@ function bind5() {
       state.shotBusy = false;
     }, 700);
     if (state.shots >= C.scene5.photos.length) later(showFilm, 2600);
+    // chụp vài tấm là đủ hiểu trò chơi: từ tấm thứ DEVELOP_ALL_AFTER cho phép rửa hết một lần
+    else if (state.shots === DEVELOP_ALL_AFTER) {
+      const b = $(".develop-all");
+      b.hidden = false;
+      if (!reduced)
+        gsap.fromTo(b, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "back.out(1.6)" });
+    }
+  });
+  $(".develop-all").addEventListener("click", () => {
+    if (current !== 5 || state.shots >= C.scene5.photos.length) return;
+    state.shots = C.scene5.photos.length;
+    updateShots();
+    sfx.shutter();
+    showFilm();
   });
 }
 function showFilm() {
   $(".shutter").hidden = true;
+  $(".develop-all").hidden = true;
   const track = $(".film-track");
   track.innerHTML = "";
   // hai bản nối nhau để cuộn vòng không thấy chỗ nối
@@ -2084,6 +2128,7 @@ function bind7() {
 function blowCandles() {
   if (state.blown || current !== 7) return;
   state.blown = true;
+  buzz([20, 40, 80]);
   const cake = $(".cake");
   gsap.killTweensOf(cake);
   gsap.set(cake, { scale: 1 });
@@ -2266,6 +2311,28 @@ function enter8() {
     a.append(img);
     a.insertAdjacentHTML("beforeend", '<span aria-hidden="true">⬇</span>');
     cg.appendChild(a);
+  });
+
+  // xem lại từng màn: chạm là chơi lại đúng màn đó
+  const sg = $(".cr-scenes");
+  sg.innerHTML = "";
+  [
+    C.scene1.giftTitle,
+    C.scene2.title,
+    C.scene3.title,
+    C.scene4.title,
+    C.scene5.title,
+    C.scene6.title,
+    C.scene7.title,
+  ].forEach((label, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "cr-scene";
+    b.innerHTML = "<b></b><span></span>";
+    b.querySelector("b").textContent = i + 1;
+    b.querySelector("span").textContent = label;
+    b.addEventListener("click", () => goTo(i + 1));
+    sg.appendChild(b);
   });
 
   const roll = $(".cr-roll");
@@ -2472,6 +2539,38 @@ async function saveKeepsake() {
       );
       actions.push(sh);
     }
+    // bản 9:16 cho story: tạo khi bấm, máy hỗ trợ thì mở bảng chia sẻ, không thì tải về
+    const st = document.createElement("button");
+    st.type = "button";
+    st.className = "btn btn-ghost";
+    st.textContent = C.ui.story;
+    st.addEventListener("click", async () => {
+      st.disabled = true;
+      try {
+        const sb = await makeKeepsake(C, hieu, phu, { story: true });
+        const sf = new File([sb], "happy-our-birthday-story.png", {
+          type: "image/png",
+        });
+        if (navigator.canShare?.({ files: [sf] }))
+          await navigator.share({ files: [sf], title: C.scene7.title }).catch(() => {});
+        else {
+          const u = URL.createObjectURL(sb);
+          const a = document.createElement("a");
+          a.href = u;
+          a.download = sf.name;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(() => URL.revokeObjectURL(u), 4000);
+        }
+      } catch (e) {
+        console.error(e);
+        toast(C.ui.keepsakeFail);
+      } finally {
+        st.disabled = false;
+      }
+    });
+    actions.push(st);
     openModal({
       title: C.scene7.title,
       text: C.scene7.saveNote,
@@ -2484,4 +2583,135 @@ async function saveKeepsake() {
   } finally {
     btn.disabled = false;
   }
+}
+
+// ---------------------------------------------------------------- tự xem
+// Thiệp tự chạm giúp từng màn và tự bấm "tiếp". Người xem chạm vào thiệp là tắt, tự chơi tiếp.
+const AUTO_GAP = { 1: 800, 2: 700, 4: 4500, 5: 1100 }; // nghỉ giữa hai lần "chạm" của từng màn (ms)
+function bindAuto() {
+  const btn = $(".auto-btn");
+  btn.addEventListener("click", () => setAuto(!auto.on));
+  // người xem tự chạm (không tính nút tự xem) thì trả quyền điều khiển cho họ
+  app.addEventListener("pointerdown", (e) => {
+    if (auto.on && e.isTrusted && !e.target.closest(".auto-btn")) setAuto(false);
+  });
+}
+function setAuto(on) {
+  auto.on = on;
+  clearInterval(auto.timer);
+  const btn = $(".auto-btn");
+  btn.setAttribute("aria-pressed", String(on));
+  btn.setAttribute("aria-label", on ? C.ui.autoStop : C.ui.auto);
+  if (!on) return;
+  auto.nextSeen = 0;
+  auto.popSeen = 0;
+  auto.last = 0;
+  if (current === 8) goTo(1);
+  auto.timer = setInterval(autoStep, 300);
+}
+function autoStep() {
+  if (!auto.on || busy) return;
+  const now = performance.now();
+  if (!$("#modal").hidden) return closeModal();
+  // ảnh thật rơi xuống: để xem 3,5 giây rồi cất
+  const rp = $(".real-pop");
+  if (rp && !rp.hidden) {
+    if (!auto.popSeen) auto.popSeen = now;
+    else if (now - auto.popSeen > 3500) {
+      rp.hidden = true;
+      auto.popSeen = 0;
+    }
+    return;
+  }
+  // nút "tiếp" hiện ra: đợi 2,6 giây cho kịp nhìn rồi qua màn
+  if (!nextBtn.hidden) {
+    if (!auto.nextSeen) auto.nextSeen = now;
+    else if (now - auto.nextSeen > 2600) {
+      auto.nextSeen = 0;
+      auto.last = 0;
+      next();
+    }
+    return;
+  }
+  auto.nextSeen = 0;
+  const gap = AUTO_GAP[current];
+  if (gap && now - auto.last < gap) return;
+  auto.last = now;
+  switch (current) {
+    case 1:
+      if (!$(".gift-wrap").hidden && !state.giftOpen) $(".gift").click();
+      break;
+    case 2:
+      $(`.star[data-i="${state.star}"]`)?.click();
+      break;
+    case 4:
+      climbStep();
+      break;
+    case 5: {
+      const dev = $(".develop-all");
+      if (!dev.hidden) dev.click();
+      else if (!$(".shutter").hidden) $(".shutter").click();
+      break;
+    }
+    case 7:
+      if (!$(".blow-hint").hidden) blowCandles();
+      break;
+    case 8:
+      setAuto(false);
+      break;
+    // màn 3 (tự chạy) và màn 6 (thư tự hiện chữ) không cần chạm
+  }
+}
+
+// ---------------------------------------------------------------- lời đáp gửi Phú
+const REPLY_DRAFT = "kh-reply-draft";
+function bindReply() {
+  const form = $(".reply-form");
+  const ta = form.querySelector("textarea");
+  const count = form.querySelector(".reply-count");
+  const status = form.querySelector(".reply-status");
+  const send = form.querySelector(".reply-send");
+  const showCount = () => (count.textContent = `${ta.value.length}/1000`);
+  try {
+    ta.value = localStorage.getItem(REPLY_DRAFT) || "";
+  } catch {}
+  showCount();
+  ta.addEventListener("input", () => {
+    showCount();
+    status.textContent = "";
+    try {
+      localStorage.setItem(REPLY_DRAFT, ta.value);
+    } catch {}
+  });
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const text = ta.value.trim();
+    if (!text) return ta.focus();
+    send.disabled = true;
+    status.className = "reply-status";
+    status.textContent = C.scene8.replySending;
+    try {
+      const r = await fetch("/api/reply", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ text, lang, website: form.website.value }),
+      });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      status.classList.add("ok");
+      status.textContent = C.scene8.replySent;
+      ta.value = "";
+      showCount();
+      try {
+        localStorage.removeItem(REPLY_DRAFT);
+      } catch {}
+      buzz([20, 40, 20]);
+      sfx.sparkle();
+    } catch (err) {
+      console.error(err);
+      status.classList.add("fail");
+      status.textContent = C.scene8.replyFail;
+    } finally {
+      send.disabled = false;
+    }
+  });
 }
