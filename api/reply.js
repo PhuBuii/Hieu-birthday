@@ -2,6 +2,7 @@
 // Cần: kết nối 1 Blob store vào project trên Vercel (tự thêm biến BLOB_READ_WRITE_TOKEN).
 // Không lưu IP hay thông tin máy, chỉ lưu nội dung, ngôn ngữ và giờ gửi.
 import { put, list } from '@vercel/blob';
+import { blobAuth } from './_blob-auth.js';
 
 const MAX_TEXT = 1000; // khớp maxlength của ô nhập
 const MAX_BODY = 8 * 1024;
@@ -31,15 +32,17 @@ export async function POST(request) {
   if (text.length > MAX_TEXT) return json(400, { error: 'too-long' });
   const lang = body.lang === 'en' ? 'en' : 'vi';
 
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return json(503, { error: 'storage-not-configured' });
+  const auth = blobAuth();
+  if (!auth) return json(503, { error: 'storage-not-configured' });
   try {
-    const { blobs } = await list({ prefix: 'replies/', limit: MAX_REPLIES });
+    const { blobs } = await list({ prefix: 'replies/', limit: MAX_REPLIES, ...auth });
     if (blobs.length >= MAX_REPLIES) return json(429, { error: 'full' });
     const at = new Date().toISOString();
     await put(`replies/${at.replace(/[:.]/g, '-')}.json`, JSON.stringify({ text, lang, at }), {
       access: 'public',
       addRandomSuffix: true,
       contentType: 'application/json; charset=utf-8',
+      ...auth,
     });
     return json(200, { ok: true });
   } catch (e) {
