@@ -29,7 +29,7 @@ export async function POST(request) {
   if (body?.website) return json(200, { ok: true });
   const text = typeof body?.text === 'string' ? body.text.trim() : '';
   if (!text) return json(400, { error: 'empty' });
-  if (text.length > MAX_TEXT) return json(400, { error: 'too-long' });
+  if ([...text].length > MAX_TEXT) return json(400, { error: 'too-long' });
   const lang = body.lang === 'en' ? 'en' : 'vi';
 
   const auth = blobAuth();
@@ -38,16 +38,20 @@ export async function POST(request) {
     const { blobs } = await list({ prefix: 'replies/', limit: MAX_REPLIES, ...auth });
     if (blobs.length >= MAX_REPLIES) return json(429, { error: 'full' });
     const at = new Date().toISOString();
-    await put(`replies/${at.replace(/[:.]/g, '-')}.json`, JSON.stringify({ text, lang, at }), {
-      access: 'public',
-      addRandomSuffix: true,
-      contentType: 'application/json; charset=utf-8',
-      ...auth,
-    });
+    const path = `replies/${at.replace(/[:.]/g, '-')}.json`;
+    const data = JSON.stringify({ text, lang, at });
+    const opts = { addRandomSuffix: true, contentType: 'application/json; charset=utf-8', ...auth };
+    // Ưu tiên store private (lời đáp không cần công khai); store public thì ghi public.
+    try {
+      await put(path, data, { ...opts, access: 'private' });
+    } catch (e) {
+      if (!/access|private|public/i.test(String(e?.message))) throw e;
+      await put(path, data, { ...opts, access: 'public' });
+    }
     return json(200, { ok: true });
   } catch (e) {
-    console.error('reply store failed', e?.message);
-    return json(500, { error: 'store-failed' });
+    console.error('reply store failed', e?.name, e?.message);
+    return json(500, { error: 'store-failed', code: e?.name || 'Error' });
   }
 }
 

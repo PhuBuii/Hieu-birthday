@@ -1,6 +1,6 @@
 // GET /api/replies?key=...: trang riêng để Phú đọc các lời đáp đã gửi.
 // Cần biến môi trường REPLY_KEY trên Vercel (một chuỗi dài, chỉ Phú biết). Sai khóa: trả 404 như không tồn tại.
-import { list } from '@vercel/blob';
+import { list, get } from '@vercel/blob';
 import { blobAuth } from './_blob-auth.js';
 import { timingSafeEqual } from 'node:crypto';
 
@@ -40,8 +40,14 @@ export async function GET(request) {
     await Promise.all(
       blobs.map(async (b) => {
         try {
-          const r = await fetch(b.url, { cache: 'no-store' });
-          return await r.json();
+          let r = null;
+          for (const access of ['private', 'public']) {
+            try {
+              r = await get(b.pathname, { access, useCache: false, ...auth });
+              if (r) break;
+            } catch {}
+          }
+          return r ? JSON.parse(await new Response(r.stream).text()) : null;
         } catch {
           return null;
         }
