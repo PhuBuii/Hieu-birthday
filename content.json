@@ -56,7 +56,11 @@
       "phu": "Chibi Phú",
       "hud": "Điều khiển thiệp"
     },
-    "toCredits": "After credit"
+    "toCredits": "After credit",
+    "resumeTitle": "Xem tiếp nha?",
+    "resumeText": "Lần trước đang xem tới màn {n}/8.",
+    "resumeYes": "Xem tiếp màn {n}",
+    "resumeNo": "Xem lại từ đầu"
   },
   "unlockAt": "2026-12-01T00:00:00+10:30",
   "audio": {
@@ -83,7 +87,25 @@
     "giftTitle": "Héo ơi, có quà nè",
     "giftHint": "Chạm 3 lần để mở quà",
     "lines": ["Ủa ai gọi Héo đó?", "Hôm nay là ngày của Héo hả? Biết rồi nha!"],
-    "phuPeek": "Psst… Phú Bùii đây. Hôm nay có người tròn 24 tuổi đó."
+    "phuPeek": "Psst… Phú Bùii đây. Hôm nay có người tròn 24 tuổi đó.",
+    "remindBtn": "Nhắc mình lúc 00:00",
+    "remindGoogle": "hoặc thêm vào Google Lịch",
+    "remindTitle": "Mở thiệp sinh nhật 🎂",
+    "remindNote": "Tới giờ mở quà rồi nè: https://hieu-birthday.vercel.app/",
+    "pokes": {
+      "3": "Ê, đừng có chọc!",
+      "6": "Chọc nữa hả? Chưa tới giờ mà!",
+      "10": "Chạm nữa là cắn á! 😤",
+      "16": "Thôi được rồi… vẫn không mở sớm đâu 😝"
+    },
+    "timeLines": {
+      "late": "Thức khuya dữ ha, mai dậy nổi hông?",
+      "morning": "Mới ngủ dậy đã mở quà, ghiền dữ ha!",
+      "noon": "Trưa rồi mới mở hả? Phú đợi từ tối qua đó!",
+      "afternoon": "Chiều rồi mới nhớ ra có quà hả?",
+      "evening": "Tối rồi mới mở, cho trễ hẹn 1 lần thôi đó."
+    },
+    "visitLine": "Lần thứ {n} rồi đó, ghiền rồi chứ gì 😏"
   },
   "scene2": {
     "title": "Hồ sơ Nhân Mã",
@@ -317,7 +339,7 @@
       "Chúc bạn Héo sớm hoàn thành khóa học, đạt kết quả xịn xò để còn dìa Việt Nam làm khùng làm điên dí Phú Bùi, đi ăn bánh tráng trộn và 1 đốnggg danh sách đồ ăn chưa đi được nhen!!!",
       "Được thì bay dìa ăn sinh nhật bụ đụi thử cho biết nhen :))))) hẹ hẹ"
     ],
-    "signature": "Cậu bạn cung Nhân mã đánh êu,",
+    "signature": "Đứa sinh cùng ngày nhưng chưa thấy quà đâu,",
     "signer": "Phú Bùi"
   },
   "scene7": {
@@ -330,7 +352,37 @@
     "wish": "24 tuổi rồi nhen!",
     "save": "Lưu ảnh kỷ niệm",
     "replay": "Xem lại từ đầu",
-    "saveNote": "Nếu không tải được, nhấn giữ vào ảnh để lưu."
+    "saveNote": "Nếu không tải được, nhấn giữ vào ảnh để lưu.",
+    "ticket": {
+      "label": "VÉ SINH NHẬT · VÀO CỬA 2 NGƯỜI",
+      "names": "KIM HIẾU × PHÚ",
+      "line": "01.12.2026 · CÙNG TUỔI 24",
+      "no": "024"
+    },
+    "dreamSay": "Ước nè: {d}",
+    "dreams": [
+      "Năm nay chạy không bị chuột rút!",
+      "Được ăn 10 dĩa bánh tráng trộn một lúc!",
+      "Leo núi xong chân không run!",
+      "Deadline tự biến mất!",
+      "Ngủ đủ 8 tiếng mỗi ngày (khó nhất)!",
+      "Chụp ảnh lần nào cũng xinh, khỏi chụp lại!",
+      "Mua đồ không bao giờ hết size!",
+      "Thi một lần là qua!"
+    ],
+    "wantsBtn": "Tới lượt Phú đòi quà 🎁",
+    "wantsTitle": "Quà Phú muốn (hợp lý 0%)",
+    "wantsNote": "Héo chọn 1 món đi, chọn rồi là Phú biết liền đó.",
+    "wants": [
+      "1 chiếc xe xsr 155 mới tinh",
+      "Bay dìa đây tổ chức sinh nhật",
+      "1 cây vàng",
+      "PS5 pro + GTA 6",
+      "GTX 5090",
+      "máy ảnh bất kỳ (^.^)"
+    ],
+    "wantsPicked": "Héo chọn quà cho Phú: {w}",
+    "wantsSent": "Chốt đơn! Phú đã nhận được rồi nha."
   },
   "scene8": {
     "title": "After credit",
@@ -354,7 +406,7 @@
     ],
     "play": "Nghe",
     "playing": "Đang phát",
-    "why": "Vì sao chọn Rainbow? Để sáng mai, hay bất cứ lúc nào Hiếu mở thiệp này, Héo cũng tràn đầy năng lượng như cầu vồng!!!",
+    "why": "Vì sao chọn Rainbow? Để sáng mai, hay bất cứ lúc nào Hiếu mở thiệp này, Héo cũng tràn đầy năng lượng như cầu vồng!!! hoặc là do nó nghe dui tai và tải free kaka :>",
     "photosTitle": "Ảnh thật",
     "photosNote": "Chạm vào ảnh để xem lớn và tải về.",
     "chibiTitle": "Chibi tải về",
@@ -386,13 +438,50 @@
     "replay": "Xem lại từ đầu",
     "armyAlt": "Chibi Phú Bùi mặc quân phục bộ đội, cười tươi",
     "replyTitle": "Gửi lời cho Phú",
-    "replyNote": "Viết gì cũng được, lời này chỉ gửi riêng cho Phú.",
+    "replyNote": "Viết gì cũng được, Phú đọc hết!",
     "replyPlaceholder": "Phú ơi...",
     "replySend": "Gửi cho Phú",
     "replySending": "Đang gửi...",
     "replySent": "Gửi rồi nè! Phú sẽ đọc sớm thôi.",
     "replyFail": "Chưa gửi được, thử lại sau chút nha.",
     "replayTitle": "Xem lại từng màn",
-    "replayNote": "Thích màn nào thì chạm để chơi lại màn đó."
+    "replayNote": "Thích màn nào thì chạm để chơi lại màn đó.",
+    "replyEmpty": "Viết vài chữ đã nha.",
+    "certTitle": "Bằng khen tuổi 24",
+    "certNote": "Giấy tờ chính thức (do Phú tự in).",
+    "certBtn": "Nhận bằng khen",
+    "cert": {
+      "org": "BỘ SINH NHẬT",
+      "motto": "Ăn ngon – Ngủ đủ – Hạnh phúc",
+      "title": "BẰNG KHEN",
+      "to": "Trao tặng",
+      "name": "Huỳnh Như Kim Hiếu",
+      "reason": "Đã xuất sắc sống sót qua tuổi 23 với các thành tích:",
+      "items": [
+        "Leo núi không bỏ cuộc giữa chừng",
+        "Chạy bộ mà vẫn cười tươi trong ảnh",
+        "Quậy banh chành nước Úc",
+        "Vẫn khùng điên đều đều",
+        "Xếp loại: Cung khòn (xuất sắc)"
+      ],
+      "date": "Ngày 01 tháng 12 năm 2026",
+      "signRole": "Chủ tịch Hội đồng Sinh nhật (tự phong)",
+      "signer": "Phú Bùi",
+      "seal": "BỘ SINH NHẬT ★ 2026 ★",
+      "no": "Số: 24/2026/SN"
+    },
+    "voucherTitle": "Phiếu đổi quà",
+    "voucherNote": "Chạm vào phiếu để đổi. Phú nhận được ngay, không được chối.",
+    "vouchers": [
+      "1 lần Phú bao trà sữa",
+      "1 lần Phú mua bánh tráng trộn",
+      "1 lần nghe than không đánh giá",
+      "1 lần làm khùng làm điên"
+    ],
+    "voucherAsk": "Đổi phiếu này nha?",
+    "voucherUse": "Đổi luôn",
+    "voucherUsed": "Đã đổi",
+    "voucherMsg": "Héo đổi phiếu: {v}",
+    "voucherSent": "Đã báo Phú! Giữ phiếu làm bằng chứng nha."
   }
 }

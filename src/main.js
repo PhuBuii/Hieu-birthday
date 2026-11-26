@@ -11,7 +11,7 @@ import {
   playSong,
   currentSong,
 } from "./audio.js";
-import { makeKeepsake } from "./card-maker.js";
+import { makeKeepsake, makeCertificate } from "./card-maker.js";
 import {
   isFill,
   isDraft,
@@ -31,13 +31,23 @@ const sayBox = $("#say");
 const fx = $(".fx");
 
 // ?preview: xem thiệp trước giờ mở khóa. ?now=2026-11-30T23:59:50+07:00: giả lập đồng hồ để thử đếm ngược.
+// ?preview, ?now, ?debug và #man=N chỉ dùng được khi chạy trên máy (localhost / mạng LAN), bản deploy bỏ qua.
 const params = new URLSearchParams(location.search);
-const PREVIEW = params.has("preview");
-const fakeNow = params.get("now")
+const DEV =
+  location.protocol === "file:" ||
+  /^(localhost|127\.0\.0\.1|\[::1\]|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+)$/.test(location.hostname);
+const PREVIEW = DEV && params.has("preview");
+const fakeNow = DEV && params.get("now")
   ? Date.parse(params.get("now").replace(" ", "+"))
   : NaN;
 const clockOffset = Number.isNaN(fakeNow) ? 0 : fakeNow - Date.now();
 const now = () => Date.now() + clockOffset;
+// nhớ màn đang xem (xem hàm saveProgress); khai báo sớm vì boot() đọc ngay lúc tải
+const VISITS_KEY = "kh-visits";
+const VOUCHERS_KEY = "kh-vouchers";
+const WANTS_KEY = "kh-wants";
+const PROGRESS_KEY = "kh-progress";
+const PROGRESS_TTL = 6 * 36e5;
 
 let C = null;
 // Ngôn ngữ: content.json là tiếng Việt; content.en.json chỉ chứa chữ tiếng Anh cùng cấu trúc, ghép đè lên.
@@ -91,6 +101,7 @@ let busy = false;
 let audioCfg = { sfxVolume: 0.6 };
 let sceneCleanup = [];
 const state = {};
+let visits = 0; // số lần đã mở thiệp (sau giờ mở khóa), dùng cho câu chọc "ghiền rồi"
 /** Chế độ tự xem: thiệp tự chạm giúp và tự qua màn */
 const auto = { on: false, timer: 0, nextSeen: 0 };
 /** Rung nhẹ khi chạm (Android; iPhone không hỗ trợ thì bỏ qua) */
@@ -129,6 +140,7 @@ boot();
 
 async function boot() {
   const t0 = performance.now();
+  const resumeFrom = readProgress(); // đọc trước khi goTo(1) ghi đè
   try {
     BASE = await (await fetch("content.json", { cache: "no-cache" })).json();
     await useLang(pickLang());
@@ -139,6 +151,7 @@ async function boot() {
   }
   document.title = C.meta.title;
   fillTexts();
+  if (!isLocked()) countVisit();
   audioCfg = initAudio(C.audio || {});
 
   // hình AI của Hiếu (nếu đã có): assets/hieu/poses.json
@@ -225,7 +238,7 @@ async function boot() {
     (p) => p.photo && setTimeout(() => preload(p.photo), 1500),
   );
 
-  const jump = +(location.hash.match(/man=(\d)/)?.[1] || 0);
+  const jump = DEV ? +(location.hash.match(/man=(\d)/)?.[1] || 0) : 0;
   const wait = jump ? 0 : Math.max(0, 2600 - (performance.now() - t0));
   setTimeout(() => {
     goTo(1);
@@ -234,10 +247,11 @@ async function boot() {
         busy = false;
         goTo(jump);
       }, 700);
+    else if (!isLocked()) offerResume(resumeFrom);
   }, wait);
 
   bindGlobal();
-  if (/[?&]debug/.test(location.search))
+  if (DEV && /[?&]debug/.test(location.search))
     window.__thiep = {
       goTo: (n) => {
         busy = false;
@@ -400,6 +414,7 @@ function goTo(n) {
   if (busy || n === current) return;
   busy = true;
   recordScene(n);
+  saveProgress(n);
   sceneCleanup.forEach((f) => f());
   sceneCleanup = [];
   closeModal();
@@ -509,6 +524,8 @@ function bindGlobal() {
   bind8();
   bindAuto();
   bindReply();
+  $(".cert-btn").addEventListener("click", showCertificate);
+  bindRemind();
   addEventListener("resize", () => {
     if (current === 4) layoutClimb();
   });
@@ -796,6 +813,8 @@ function openModal({ title = "", text = "", node = null, actions = [] }) {
   const ph = $(".modal-photo");
   ph.innerHTML = "";
   if (node) ph.appendChild(node);
+  // danh sách (không phải ảnh) thì để dưới tiêu đề
+  $(".modal-card").classList.toggle("node-after", !!node && node.tagName !== "IMG");
   const box = $(".modal-actions");
   box.innerHTML = "";
   actions.forEach((a) => box.appendChild(a));
@@ -848,12 +867,14 @@ function isLocked() {
 function enter1() {
   const s = $(".s1");
   s.classList.remove("opened");
+  state.pokes = 0;
   gsap.set([".gift", ".gift-lid", ".gift-body", ".gift-glow"], {
     clearProps: "all",
   });
   hieu.root.classList.remove("in-box");
   duck(0.8);
   // muốn xem thử màn khóa: mở link KHÔNG có ?preview (hoặc thêm ?now=2026-11-30T23:59:50+07:00)
+  app.classList.toggle("is-locked", isLocked());
   if (isLocked()) {
     $(".lock").hidden = false;
     $(".gift-wrap").hidden = true;
@@ -922,6 +943,7 @@ function unlockNow() {
   hieu.pose("surprised").feel("surprised");
   hieu.hop(2);
   later(() => {
+    app.classList.remove("is-locked");
     $(".lock").hidden = true;
     startGift();
   }, 1400);
@@ -950,6 +972,30 @@ function startGift() {
   }, 2400);
 }
 function bind1() {
+  // màn khóa: chọc vào Hiếu đang dỗi, đủ số lần thì Hiếu gắt
+  $(".s1").addEventListener("pointerdown", (e) => {
+    if (current !== 1 || !app.classList.contains("is-locked")) return;
+    if (e.target.closest("button, a")) return;
+    const r = hieu.root.getBoundingClientRect();
+    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) return;
+    state.pokes = (state.pokes || 0) + 1;
+    sfx.pop();
+    buzz(15);
+    if (!reduced)
+      gsap
+        .timeline()
+        .to(hieu.rig, { scaleY: 0.9, scaleX: 1.06, duration: 0.08 })
+        .to(hieu.rig, { scaleY: 1, scaleX: 1, duration: 0.4, ease: "elastic.out(1, .4)" });
+    const line = C.scene1.pokes?.[state.pokes];
+    if (!line) return;
+    say(line);
+    if (state.pokes >= 10) {
+      hieu.hop(2);
+      buzz([30, 40, 30]);
+      if (!reduced)
+        gsap.fromTo(".countdown", { x: -10 }, { x: 0, duration: 0.6, ease: "elastic.out(1, .2)" });
+    }
+  });
   $(".gift").addEventListener("click", () => {
     if (state.giftOpen || current !== 1) return;
     state.taps++;
@@ -1148,6 +1194,9 @@ function openGift() {
   }, 7300);
   say(C.scene1.lines[1], 7400);
   later(() => showNext(true, C.ui.toProfile), 9200);
+  const extra =
+    visits >= 3 && C.scene1.visitLine ? C.scene1.visitLine.replace("{n}", visits) : timeLine();
+  if (extra) say(extra, 10600, "phu");
   sceneCleanup.push(() => phu.root.classList.remove("peek"));
 }
 
@@ -2064,6 +2113,7 @@ function enter7() {
   t.innerHTML = "";
   $(".hob-sub").classList.remove("on");
   $(".hob-wish").hidden = true;
+  $(".hob-dream").hidden = true;
   $(".end-actions").hidden = true;
   $(".blow-hint").hidden = true;
   const cake = $(".cake");
@@ -2124,6 +2174,7 @@ function bind7() {
   $(".cake").addEventListener("click", blowCandles);
   $('.s7 [data-act="save"]').addEventListener("click", saveKeepsake);
   $('.s7 [data-act="replay"]').addEventListener("click", () => goTo(1));
+  $('.s7 [data-act="wants"]').addEventListener("click", showWants);
 }
 function blowCandles() {
   if (state.blown || current !== 7) return;
@@ -2156,6 +2207,7 @@ function blowCandles() {
   later(() => {
     $(".hob-sub").classList.add("on");
     $(".hob-wish").hidden = false;
+    $(".hob-dream").hidden = false;
     $(".end-actions").hidden = false;
     if (!reduced)
       gsap.from(".end-actions .btn", {
@@ -2169,6 +2221,14 @@ function blowCandles() {
     phu.wave(2000);
     showNext(true, C.ui.toCredits);
   }, 3600);
+  // điều ước ngẫu nhiên, không lặp lại điều vừa ước lần trước
+  const dreams = C.scene7.dreams || [];
+  if (dreams.length) {
+    let i = Math.floor(Math.random() * dreams.length);
+    if (dreams.length > 1 && i === state.lastDream) i = (i + 1) % dreams.length;
+    state.lastDream = i;
+    $(".hob-dream").textContent = C.scene7.dreamSay.replace("{d}", dreams[i]);
+  }
   // hai người nhảy luân phiên mừng
   later(() => {
     let k = 0;
@@ -2312,6 +2372,8 @@ function enter8() {
     a.insertAdjacentHTML("beforeend", '<span aria-hidden="true">⬇</span>');
     cg.appendChild(a);
   });
+
+  renderVouchers();
 
   // xem lại từng màn: chạm là chơi lại đúng màn đó
   const sg = $(".cr-scenes");
@@ -2663,6 +2725,109 @@ function autoStep() {
   }
 }
 
+// ---------------------------------------------------------------- xem tiếp sau khi tải lại
+// Trình duyệt trong Messenger/Zalo hay tự tải lại khi chuyển app: nhớ màn đang xem 6 tiếng.
+function saveProgress(n) {
+  try {
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify({ n, t: Date.now() }));
+  } catch {}
+}
+function readProgress() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(PROGRESS_KEY) || "null");
+    const n = saved?.n;
+    return n >= 2 && n <= 8 && Date.now() - saved.t < PROGRESS_TTL ? n : 0;
+  } catch {
+    return 0;
+  }
+}
+function offerResume(n) {
+  if (!n) return;
+  saveProgress(n); // goTo(1) vừa ghi đè: giữ lại màn cũ đến khi người xem chọn
+  const fill = (t) => t.replace("{n}", n);
+  const yes = document.createElement("button");
+  yes.type = "button";
+  yes.className = "btn btn-main";
+  yes.textContent = fill(C.ui.resumeYes);
+  const no = document.createElement("button");
+  no.type = "button";
+  no.className = "btn btn-ghost";
+  no.textContent = C.ui.resumeNo;
+  yes.addEventListener("click", () => {
+    closeModal();
+    const go = () => {
+      if (busy) return setTimeout(go, 120);
+      goTo(n);
+    };
+    go();
+  });
+  no.addEventListener("click", () => {
+    closeModal();
+    saveProgress(1);
+  });
+  later(
+    () =>
+      openModal({
+        title: C.ui.resumeTitle,
+        text: fill(C.ui.resumeText),
+        actions: [yes, no],
+      }),
+    500,
+  );
+}
+
+// ---------------------------------------------------------------- nhắc giờ mở thiệp (.ics / Google Lịch)
+const icsTime = (ms) => new Date(ms).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+const icsEsc = (t) => String(t).replace(/[\\;,]/g, (c) => "\\" + c).replace(/\n/g, "\\n");
+function bindRemind() {
+  const start = unlockTime();
+  const end = start + 30 * 6e4;
+  const url = C.meta?.siteUrl || location.origin + "/";
+  const g = $(".remind-gcal");
+  g.href =
+    "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+    "&text=" + encodeURIComponent(C.scene1.remindTitle) +
+    "&dates=" + icsTime(start) + "/" + icsTime(end) +
+    "&details=" + encodeURIComponent(C.scene1.remindNote);
+  $(".remind-ics").onclick = () => {
+    const ics = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//thiep-kim-hieu//VI",
+      "CALSCALE:GREGORIAN",
+      "BEGIN:VEVENT",
+      "UID:mo-thiep-" + start + "@hieu-birthday",
+      "DTSTAMP:" + icsTime(Date.now()),
+      "DTSTART:" + icsTime(start),
+      "DTEND:" + icsTime(end),
+      "SUMMARY:" + icsEsc(C.scene1.remindTitle),
+      "DESCRIPTION:" + icsEsc(C.scene1.remindNote),
+      "URL:" + url,
+      "BEGIN:VALARM",
+      "ACTION:DISPLAY",
+      "DESCRIPTION:" + icsEsc(C.scene1.remindTitle),
+      "TRIGGER:-PT5M",
+      "END:VALARM",
+      "BEGIN:VALARM",
+      "ACTION:DISPLAY",
+      "DESCRIPTION:" + icsEsc(C.scene1.remindTitle),
+      "TRIGGER:PT0M",
+      "END:VALARM",
+      "END:VEVENT",
+      "END:VCALENDAR",
+    ].join("\r\n");
+    const u = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));
+    const a = document.createElement("a");
+    a.href = u;
+    a.download = "mo-thiep-sinh-nhat.ics";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(u), 4000);
+    buzz(15);
+  };
+}
+
 // ---------------------------------------------------------------- lời đáp gửi Phú
 const REPLY_DRAFT = "kh-reply-draft";
 function bindReply() {
@@ -2671,7 +2836,7 @@ function bindReply() {
   const count = form.querySelector(".reply-count");
   const status = form.querySelector(".reply-status");
   const send = form.querySelector(".reply-send");
-  const showCount = () => (count.textContent = `${ta.value.length}/1000`);
+  const showCount = () => (count.textContent = `${[...ta.value].length}/1000`);
   try {
     ta.value = localStorage.getItem(REPLY_DRAFT) || "";
   } catch {}
@@ -2686,7 +2851,12 @@ function bindReply() {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const text = ta.value.trim();
-    if (!text) return ta.focus();
+    if (!text) {
+      status.className = "reply-status fail";
+      status.textContent = C.scene8.replyEmpty;
+      return ta.focus();
+    }
+    if ([...text].length > 1000) return ta.focus();
     send.disabled = true;
     status.className = "reply-status";
     status.textContent = C.scene8.replySending;
@@ -2714,4 +2884,156 @@ function bindReply() {
       send.disabled = false;
     }
   });
+}
+
+// ---------------------------------------------------------------- trò vui thêm
+function countVisit() {
+  try {
+    visits = (+localStorage.getItem(VISITS_KEY) || 0) + 1;
+    localStorage.setItem(VISITS_KEY, visits);
+  } catch {}
+}
+/** Câu Phú chọc theo giờ trên máy người xem */
+function timeLine() {
+  const t = C.scene1.timeLines;
+  if (!t) return "";
+  const h = new Date(now()).getHours();
+  return h < 5 ? t.late : h < 11 ? t.morning : h < 14 ? t.noon : h < 18 ? t.afternoon : t.evening;
+}
+const readList = (key) => {
+  try {
+    const v = JSON.parse(localStorage.getItem(key) || "[]");
+    return Array.isArray(v) ? v : [];
+  } catch {
+    return [];
+  }
+};
+const writeList = (key, v) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(v));
+  } catch {}
+};
+/** Gửi một dòng cho Phú qua cùng API lời đáp */
+async function postNote(text) {
+  const r = await fetch("/api/reply", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ text, lang, website: "" }),
+  });
+  if (!r.ok) throw new Error("HTTP " + r.status);
+}
+const mkBtn = (cls, text) => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = cls;
+  b.textContent = text;
+  return b;
+};
+
+// phiếu đổi quà ở after credit: đổi rồi thì báo Phú, phiếu chuyển sang "Đã đổi"
+function renderVouchers() {
+  const box = $(".vouchers");
+  const S = C.scene8;
+  box.innerHTML = "";
+  const used = readList(VOUCHERS_KEY);
+  (S.vouchers || []).forEach((v, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "voucher";
+    b.innerHTML =
+      '<span class="v-ic" aria-hidden="true">🎟️</span><span class="v-tx"></span><span class="v-st"></span>';
+    b.querySelector(".v-tx").textContent = v;
+    const isUsed = used.includes(i);
+    b.classList.toggle("used", isUsed);
+    b.querySelector(".v-st").textContent = isUsed ? S.voucherUsed : "";
+    b.disabled = isUsed;
+    b.addEventListener("click", () => {
+      const ok = mkBtn("btn btn-main", S.voucherUse);
+      ok.addEventListener("click", async () => {
+        ok.disabled = true;
+        try {
+          await postNote(S.voucherMsg.replace("{v}", v));
+          writeList(VOUCHERS_KEY, [...new Set([...readList(VOUCHERS_KEY), i])]);
+          closeModal();
+          renderVouchers();
+          toast(S.voucherSent);
+          buzz([20, 40, 20]);
+          sfx.sparkle();
+          confetti(30, { x: 50, y: 40 });
+        } catch (e) {
+          console.error(e);
+          ok.disabled = false;
+          toast(S.replyFail);
+        }
+      });
+      openModal({ title: S.voucherAsk, text: v, actions: [ok] });
+    });
+    box.appendChild(b);
+  });
+}
+
+// tới lượt Phú đòi quà: chọn 1 món là gửi cho Phú
+function showWants() {
+  const S = C.scene7;
+  const list = document.createElement("div");
+  list.className = "wants-list";
+  const picked = readList(WANTS_KEY);
+  (S.wants || []).forEach((w, i) => {
+    const b = mkBtn("want" + (picked.includes(i) ? " picked" : ""), w);
+    b.addEventListener("click", async () => {
+      const all = list.querySelectorAll("button");
+      all.forEach((x) => (x.disabled = true));
+      try {
+        await postNote(S.wantsPicked.replace("{w}", w));
+        writeList(WANTS_KEY, [...new Set([...readList(WANTS_KEY), i])]);
+        b.classList.add("picked");
+        toast(S.wantsSent);
+        buzz([20, 40, 20]);
+        sfx.sparkle();
+        setTimeout(closeModal, 900);
+      } catch (e) {
+        console.error(e);
+        toast(C.scene8.replyFail);
+      } finally {
+        all.forEach((x) => (x.disabled = false));
+      }
+    });
+    list.appendChild(b);
+  });
+  openModal({ title: S.wantsTitle, text: S.wantsNote, node: list });
+}
+
+// bằng khen tuổi 24: vẽ trên máy, tải về hoặc chia sẻ
+async function showCertificate() {
+  const btn = $(".cert-btn");
+  btn.disabled = true;
+  try {
+    const blob = await makeCertificate(C, hieu);
+    const url = URL.createObjectURL(blob);
+    const img = new Image();
+    img.src = url;
+    img.alt = C.scene8.certTitle;
+    const name = "bang-khen-tuoi-24.png";
+    const dl = document.createElement("a");
+    dl.className = "btn btn-main";
+    dl.href = url;
+    dl.download = name;
+    dl.textContent = C.ui.download;
+    const actions = [dl];
+    const file = new File([blob], name, { type: "image/png" });
+    if (navigator.canShare?.({ files: [file] })) {
+      const sh = mkBtn("btn btn-ghost", C.ui.share);
+      sh.addEventListener("click", () =>
+        navigator.share({ files: [file], title: C.scene8.certTitle }).catch(() => {}),
+      );
+      actions.push(sh);
+    }
+    openModal({ title: C.scene8.certTitle, text: C.scene7.saveNote, node: img, actions });
+    sfx.tada();
+  } catch (e) {
+    console.error(e);
+    toast(C.ui.keepsakeFail);
+  } finally {
+    btn.disabled = false;
+  }
 }

@@ -39,7 +39,11 @@
       "phu": "Chibi Phú",
       "hud": "Card controls"
     },
-    "toCredits": "After credits"
+    "toCredits": "After credits",
+    "resumeTitle": "Pick up where you left off?",
+    "resumeText": "Last time you were on scene {n}/8.",
+    "resumeYes": "Continue scene {n}",
+    "resumeNo": "Start over"
   },
   "scene0": {
     "loading": "Warming up…"
@@ -51,7 +55,25 @@
     "giftTitle": "Héo, there's a gift for you",
     "giftHint": "Tap 3 times to open the gift",
     "lines": ["Huh? Who's calling Héo?", "Today's Héo's day? Oh, I know!"],
-    "phuPeek": "Psst… it's Phú Bùi. Someone turns 24 today."
+    "phuPeek": "Psst… it's Phú Bùi. Someone turns 24 today.",
+    "remindBtn": "Remind me at 00:00",
+    "remindGoogle": "or add to Google Calendar",
+    "remindTitle": "Open the birthday card 🎂",
+    "remindNote": "Time to open your gift: https://hieu-birthday.vercel.app/",
+    "pokes": {
+      "3": "Hey, stop poking!",
+      "6": "Again? It's not time yet!",
+      "10": "One more poke and I bite! 😤",
+      "16": "Fine… still not opening early 😝"
+    },
+    "timeLines": {
+      "late": "Up this late? Can you even wake up tomorrow?",
+      "morning": "Opening gifts right after waking up, huh!",
+      "noon": "Only now? Phú's been waiting since last night!",
+      "afternoon": "Just remembered there's a gift, huh?",
+      "evening": "Opening it this late? Fine, just this once."
+    },
+    "visitLine": "Visit number {n}. Hooked, aren't you 😏"
   },
   "scene2": {
     "title": "Sagittarius File",
@@ -252,7 +274,8 @@
       "May you finish your course soon with awesome results, so you can come back to Vietnam and go wild with Phú Bùi: bánh tráng trộn and a whole hugeee list of food spots we haven't hit yet!!!",
       "And if you can, fly home and celebrate our birthday together for once :))))) hehe"
     ],
-    "signature": "Your fellow Sagittarius buddy,"
+    "signature": "Same birthday, still no present in sight,",
+    "signer": "Phú Bùi"
   },
   "scene7": {
     "hieuSay": "Wait, who's thiiis!!!",
@@ -263,7 +286,37 @@
     "wish": "Officially 24!",
     "save": "Save keepsake photo",
     "replay": "Watch again",
-    "saveNote": "If it won't download, press and hold the image to save it."
+    "saveNote": "If it won't download, press and hold the image to save it.",
+    "ticket": {
+      "label": "BIRTHDAY PASS · ADMIT TWO",
+      "names": "KIM HIẾU × PHÚ",
+      "line": "01.12.2026 · BOTH TURNING 24",
+      "no": "024"
+    },
+    "dreamSay": "My wish: {d}",
+    "dreams": [
+      "No cramps on any run this year!",
+      "10 plates of bánh tráng trộn in one go!",
+      "Legs that don't shake after a climb!",
+      "Deadlines that vanish on their own!",
+      "8 hours of sleep every day (the hardest one)!",
+      "Every photo cute on the first try!",
+      "Clothes that are never out of my size!",
+      "Pass every exam on the first go!"
+    ],
+    "wantsBtn": "Phú's turn to ask 🎁",
+    "wantsTitle": "Phú's wishlist (0% reasonable)",
+    "wantsNote": "Pick one, Phú gets notified right away.",
+    "wants": [
+      "A brand-new Yamaha XSR155",
+      "Fly back here and throw a birthday party",
+      "A whole tael of gold",
+      "PS5 Pro + GTA 6",
+      "GTX 5090",
+      "Any camera will do (^.^)"
+    ],
+    "wantsPicked": "Héo picked a gift for Phú: {w}",
+    "wantsSent": "Deal! Phú got it."
   },
   "scene8": {
     "title": "After credits",
@@ -279,7 +332,7 @@
     ],
     "play": "Play",
     "playing": "Playing",
-    "why": "Why Rainbow? So that tomorrow morning, or whenever Hiếu opens this card, Héo feels as full of energy as a rainbow!!!",
+    "why": "Why Rainbow? So that tomorrow morning, or whenever Hiếu opens this card, Héo feels as full of energy as a rainbow!!! Or maybe just because it sounds nice and was free to download, hehe :>",
     "photosTitle": "Real photos",
     "photosNote": "Tap a photo to see it big and download it.",
     "chibiTitle": "Chibi downloads",
@@ -307,13 +360,50 @@
     "replay": "Watch again",
     "armyAlt": "Chibi Phú Bùi in an army uniform, smiling",
     "replyTitle": "Send Phú a note",
-    "replyNote": "Write anything. It goes to Phú only.",
+    "replyNote": "Write anything. Phú will read it all!",
     "replyPlaceholder": "Hey Phú...",
     "replySend": "Send to Phú",
     "replySending": "Sending...",
     "replySent": "Sent! Phú will read it soon.",
     "replyFail": "Couldn't send it. Try again in a bit.",
     "replayTitle": "Replay a scene",
-    "replayNote": "Tap any scene to play it again."
+    "replayNote": "Tap any scene to play it again.",
+    "replyEmpty": "Write a few words first.",
+    "certTitle": "Age 24 certificate",
+    "certNote": "An official document (printed by Phú himself).",
+    "certBtn": "Get the certificate",
+    "cert": {
+      "org": "MINISTRY OF BIRTHDAYS",
+      "motto": "Eat well – Sleep enough – Be happy",
+      "title": "CERTIFICATE",
+      "to": "Awarded to",
+      "name": "Huỳnh Như Kim Hiếu",
+      "reason": "For surviving age 23 with flying colours:",
+      "items": [
+        "Climbed mountains without giving up halfway",
+        "Ran and still smiled in the photos",
+        "Turned Australia upside down",
+        "Still reliably, consistently crazy",
+        "Grade: Certified Nutcase (with distinction)"
+      ],
+      "date": "1 December 2026",
+      "signRole": "Chair of the Birthday Council (self-appointed)",
+      "signer": "Phú Bùi",
+      "seal": "MINISTRY OF BIRTHDAYS ★ 2026 ★",
+      "no": "No. 24/2026/BD"
+    },
+    "voucherTitle": "Gift vouchers",
+    "voucherNote": "Tap a voucher to redeem it. Phú is notified at once, no take-backs.",
+    "vouchers": [
+      "Phú buys one bubble tea",
+      "Phú buys one bánh tráng trộn",
+      "Phú listens to one rant, no judging",
+      "One free pass to go totally crazy together"
+    ],
+    "voucherAsk": "Redeem this voucher?",
+    "voucherUse": "Redeem",
+    "voucherUsed": "Redeemed",
+    "voucherMsg": "Héo redeemed: {v}",
+    "voucherSent": "Phú has been told! Keep this as proof."
   }
 }

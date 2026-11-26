@@ -13,15 +13,19 @@
       name="description"
       content="Một tấm thiệp nho nhỏ cho sinh nhật tuổi 24."
     />
-    <!-- Ảnh xem trước khi dán link: thay og:url và og:image bằng địa chỉ tuyệt đối khi đưa lên mạng -->
+    <!-- Ảnh xem trước khi dán link (Messenger/Zalo cần địa chỉ tuyệt đối) -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Happy 24th, Kim Hiếu!" />
     <meta
       property="og:description"
       content="Mở thiệp đúng 00:00 ngày 01/12 nha."
     />
-    <meta property="og:image" content="assets/og-image.jpg" />
-    <meta property="og:url" content="" />
+    <meta property="og:image" content="https://hieu-birthday.vercel.app/assets/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Hiếu và Phú chibi cầm bánh sinh nhật số 24" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:url" content="https://hieu-birthday.vercel.app/" />
     <link
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E%F0%9F%8E%82%3C/text%3E%3C/svg%3E"
@@ -72,6 +76,10 @@
             <div class="cd"><b data-cd="h">00</b><small></small></div>
             <div class="cd"><b data-cd="m">00</b><small></small></div>
             <div class="cd"><b data-cd="s">00</b><small></small></div>
+          </div>
+          <div class="remind">
+            <button class="btn btn-ghost remind-ics" type="button" data-t="scene1.remindBtn"></button>
+            <a class="remind-gcal" target="_blank" rel="noopener" data-t="scene1.remindGoogle"></a>
           </div>
         </div>
         <h2 class="scene-title gift-title" data-t="scene1.giftTitle"></h2>
@@ -569,6 +577,7 @@
         </button>
         <p class="hint blow-hint" data-t="scene7.blowHint"></p>
         <p class="hob-wish" data-t="scene7.wish" hidden></p>
+        <p class="hob-dream" aria-live="polite" hidden></p>
         <div class="end-actions" hidden>
           <button
             class="btn btn-main"
@@ -581,6 +590,12 @@
             type="button"
             data-act="replay"
             data-t="scene7.replay"
+          ></button>
+          <button
+            class="btn btn-ghost"
+            type="button"
+            data-act="wants"
+            data-t="scene7.wantsBtn"
           ></button>
         </div>
       </section>
@@ -627,6 +642,16 @@
               </div>
               <p class="reply-status" role="status" aria-live="polite"></p>
             </form>
+          </section>
+          <section class="cr-block">
+            <h3 data-t="scene8.voucherTitle"></h3>
+            <p class="cr-note" data-t="scene8.voucherNote"></p>
+            <div class="vouchers"></div>
+          </section>
+          <section class="cr-block cr-cert">
+            <h3 data-t="scene8.certTitle"></h3>
+            <p class="cr-note" data-t="scene8.certNote"></p>
+            <button class="btn btn-main cert-btn" type="button" data-t="scene8.certBtn"></button>
           </section>
           <section class="cr-block">
             <h3 data-t="scene8.musicTitle"></h3>
